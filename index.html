@@ -1,0 +1,3137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Type Garden — Living Botanical Typography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;1,6..96,700&family=Cinzel:wght@700&family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      overscroll-behavior: none;
+      font-family: 'DM Mono', ui-monospace, monospace;
+      color: #fff;
+    }
+    a { color: #fff; text-decoration: none; }
+    a:hover { color: #FFB4A8; }
+    input[type=range] { accent-color: #FFFFFF; }
+
+    [data-tg="app"] {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      cursor: text;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-tg="app"] button {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      font-family: inherit;
+    }
+    html[data-touch] [data-tg="app"] {
+      touch-action: none;
+      top: var(--tg-top, 0px) !important;
+      bottom: auto !important;
+      height: var(--tg-h, 100%) !important;
+    }
+
+    /* Top Navigation bar */
+    .top-bar {
+      position: absolute;
+      top: calc(16px + env(safe-area-inset-top));
+      right: calc(16px + env(safe-area-inset-right));
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pill-group {
+      display: flex;
+      gap: 3px;
+      padding: 3px;
+      border: 1px solid #2A2A2A;
+      border-radius: 999px;
+      background: rgba(10, 10, 10, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .tg-mode-btn, .tg-pill-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      background: transparent;
+      color: #BDBDBD;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .tg-mode-btn.active, .tg-pill-btn.active {
+      background: #FFFFFF;
+      color: #000000;
+      font-weight: 500;
+    }
+    .tg-pill-btn:hover:not(.active), .tg-mode-btn:hover:not(.active) {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Bottom action bar */
+    [data-tg="bar"] {
+      position: absolute;
+      left: calc(24px + env(safe-area-inset-left));
+      right: calc(24px + env(safe-area-inset-right));
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: #FFFFFF;
+      opacity: 0.75;
+      transition: opacity 0.25s, color 0.35s;
+      z-index: 10;
+      pointer-events: none;
+    }
+    [data-tg="bar"]:hover {
+      opacity: 1;
+    }
+    [data-tg="hints"] {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+      pointer-events: auto;
+    }
+    [data-tg="ctrls"] {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      pointer-events: auto;
+    }
+    [data-tg="pal"] {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding: 4px 6px;
+      border: 1px solid #3A3A3A;
+      border-radius: 999px;
+      background: rgba(10, 10, 10, 0.75);
+      backdrop-filter: blur(8px);
+      max-width: 480px;
+      overflow-x: auto;
+    }
+    .tg-sw {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      padding: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+      background: #000;
+    }
+    .tg-sw:hover {
+      transform: scale(1.18) !important;
+    }
+    .tg-sw.active {
+      transform: scale(1.12);
+      border-color: #FFFFFF;
+    }
+    .tg-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+    .tg-btn {
+      background: transparent;
+      border: 1px solid #3A3A3A;
+      color: #BDBDBD;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .tg-btn:hover {
+      border-color: #FFFFFF;
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .tg-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #3A3A3A;
+      background: rgba(10, 10, 10, 0.75);
+      color: #BDBDBD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tg-icon-btn:hover {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+    .tg-icon-btn.active {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    [data-tg="coarse"] { display: none; }
+    @media (pointer: coarse) {
+      [data-tg="fine"] { display: none; }
+      [data-tg="coarse"] { display: inline; }
+    }
+    @media (max-width: 600px) {
+      [data-tg="bar"] {
+        left: calc(16px + env(safe-area-inset-left));
+        right: calc(16px + env(safe-area-inset-right));
+        bottom: calc(14px + env(safe-area-inset-bottom));
+        gap: 10px;
+      }
+      [data-tg="hints"] { gap: 10px; font-size: 11px; }
+      [data-tg="ctrls"] { flex: 1 1 100%; justify-content: space-between; gap: 6px; }
+      [data-tg="pal"] { gap: 4px; }
+      .tg-sw {
+        --sw: clamp(14px, calc((100vw - 180px) / 14), 22px);
+        width: var(--sw) !important;
+        height: var(--sw) !important;
+      }
+      .tg-dot {
+        width: calc(var(--sw) * .46) !important;
+        height: calc(var(--sw) * .46) !important;
+      }
+      .tg-btn { padding: 6px 11px !important; }
+    }
+
+    /* Live presence / peers */
+    [data-tg="count"]:empty { display: none; }
+    [data-tg="count"]::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      margin-right: 8px;
+      vertical-align: 1px;
+      animation: tg-live 2.4s ease-in-out infinite;
+    }
+    @keyframes tg-live {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .tg-peer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      will-change: transform;
+      transition: opacity 0.45s;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .tg-peer svg { display: block; overflow: visible; }
+    .tg-peer span {
+      position: absolute;
+      left: 14px;
+      top: 18px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: #000;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    @media (max-width: 600px) {
+      .tg-peer { font-size: 10px; }
+      .tg-peer svg { width: 15px; height: 17px; }
+      .tg-peer span { left: 12px; top: 15px; padding: 3px 7px; }
+    }
+
+    /* Customize Drawer / Popover */
+    .custom-drawer {
+      position: absolute;
+      top: calc(64px + env(safe-area-inset-top));
+      right: calc(16px + env(safe-area-inset-right));
+      width: min(380px, calc(100vw - 32px));
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      background: rgba(12, 12, 14, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid #262626;
+      border-radius: 16px;
+      padding: 20px;
+      z-index: 30;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      animation: drawerIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .custom-drawer.open {
+      display: flex;
+    }
+    @keyframes drawerIn {
+      from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1F1F1F;
+      padding-bottom: 12px;
+    }
+    .drawer-title {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #FFFFFF;
+    }
+    .drawer-close {
+      background: transparent;
+      border: 0;
+      color: #8C8C8C;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px;
+      line-height: 1;
+    }
+    .drawer-close:hover { color: #FFFFFF; }
+    .drawer-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .drawer-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8C8C8C;
+    }
+    .chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip-btn {
+      border: 1px solid #262626;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      background: transparent;
+      color: #EDEDED;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .chip-btn.active {
+      border-color: #FFFFFF;
+      background: #FFFFFF;
+      color: #000000;
+      font-weight: 500;
+    }
+    .chip-btn:hover:not(.active) {
+      border-color: #555555;
+    }
+    .slider-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .slider-row input[type=range] {
+      flex: 1;
+      height: 4px;
+      background: #2A2A2A;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .slider-val {
+      min-width: 38px;
+      text-align: right;
+      color: #8C8C8C;
+      font-size: 11px;
+    }
+    .color-pickers-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .color-picker-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .color-picker-item span {
+      font-size: 9px;
+      color: #777;
+      text-transform: uppercase;
+    }
+    .color-picker-item input[type=color] {
+      -webkit-appearance: none;
+      border: 1px solid #333;
+      border-radius: 8px;
+      width: 100%;
+      height: 30px;
+      cursor: pointer;
+      background: transparent;
+      padding: 0;
+    }
+    .color-picker-item input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-picker-item input[type=color]::-webkit-color-swatch { border: 0; border-radius: 7px; }
+
+    /* Poster mode */
+    [data-tg="poster"] {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: minmax(290px, 360px) minmax(0, 1fr);
+      background: #000;
+      cursor: default;
+      color: #EDEDED;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      z-index: 15;
+    }
+    [data-tg="panel"] {
+      border-right: 1px solid #1E1E1E;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 24px 22px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      background: #0A0A0A;
+    }
+    .poster-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0;
+      color: #FFFFFF;
+    }
+    .section-title {
+      color: #8C8C8C;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .poster-input {
+      background: #000;
+      border: 1px solid #2A2A2A;
+      border-radius: 10px;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 20px;
+      padding: 10px 12px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .poster-input:focus { border-color: #FFFFFF; }
+    .regrow-btn {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid #2A2A2A;
+      color: #EDEDED;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .regrow-btn:hover { border-color: #FFFFFF; color: #FFFFFF; }
+    .presets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .preset-btn {
+      text-align: left;
+      background: transparent;
+      border: 1px solid #2A2A2A;
+      color: #FFFFFF;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .preset-btn.active {
+      background: #161616;
+      border-color: #FFFFFF;
+    }
+    .preset-btn:hover:not(.active) { border-color: #4A4A4A; }
+    .preset-label { font-size: 13px; }
+    .preset-sub { color: #8C8C8C; font-size: 11px; }
+
+    .palettes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .pal-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: stretch;
+      background: transparent;
+      border: 1px solid #2A2A2A;
+      color: #EDEDED;
+      padding: 6px 6px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s;
+    }
+    .pal-card.active { border-color: #FFFFFF; }
+    .pal-card:hover:not(.active) { border-color: #8C8C8C; }
+    .pal-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .pal-preview-flower { width: 16px; height: 16px; border-radius: 50%; }
+    .pal-preview-stem { width: 11px; height: 11px; border-radius: 50%; margin-left: -3px; }
+    .pal-preview-text {
+      font-weight: 700;
+      font-size: 17px;
+      margin-left: 8px;
+    }
+
+    .export-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid #1E1E1E;
+      padding-top: 20px;
+    }
+    .btn-export-primary {
+      background: #FFFFFF;
+      border: 0;
+      color: #000;
+      font-weight: 500;
+      padding: 12px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .btn-export-primary:disabled, .btn-export-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-export-secondary {
+      background: transparent;
+      border: 1px solid #3A3A3A;
+      color: #EDEDED;
+      padding: 11px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-export-secondary:hover:not(:disabled) {
+      border-color: #FFFFFF;
+      color: #FFFFFF;
+    }
+    .export-status {
+      color: #8C8C8C;
+      min-height: 16px;
+      font-size: 11px;
+    }
+
+    [data-tg="stage"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 32px 32px;
+      min-width: 0;
+    }
+    [data-tg="pcanvas"] {
+      width: min(100%, calc(100vh - 96px));
+      height: auto;
+      aspect-ratio: 1 / 1;
+      display: block;
+      border: 1px solid #1E1E1E;
+      background: #000;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    @media (max-width: 720px) {
+      [data-tg="poster"] {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+      }
+      [data-tg="poster"]::before {
+        content: "";
+        order: -2;
+        position: sticky;
+        top: 0;
+        flex: none;
+        height: calc(60px + env(safe-area-inset-top));
+        margin-bottom: calc(-60px - env(safe-area-inset-top));
+        background: linear-gradient(#000 62%, rgba(0, 0, 0, 0));
+        z-index: 4;
+        pointer-events: none;
+      }
+      [data-tg="stage"] {
+        order: -1;
+        flex: none;
+        padding: calc(64px + env(safe-area-inset-top)) 16px 12px !important;
+      }
+      [data-tg="pcanvas"] { width: 100% !important; max-width: 520px; }
+      [data-tg="panel"] {
+        flex: none;
+        border-right: 0 !important;
+        border-top: 1px solid #1E1E1E;
+        overflow: visible !important;
+        padding: 20px 16px calc(32px + env(safe-area-inset-bottom)) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" data-tg="app">
+    <!-- Type Canvas -->
+    <canvas id="cv" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
+
+    <!-- Multiplayer cursors -->
+    <div id="peers" data-tg="peers" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:4;display:block;"></div>
+
+    <!-- Hidden keyboard input for mobile & desktop capturing -->
+    <input id="inp" data-tg="input" aria-label="Type to grow a garden" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" style="position:fixed;left:0;top:0;width:1px;height:1px;margin:0;padding:0;border:0;opacity:0;font-size:16px;color:transparent;background:transparent;caret-color:transparent;pointer-events:none">
+
+    <!-- Top Navigation Bar (Modes & Customize Toggle) -->
+    <div class="top-bar">
+      <div class="pill-group">
+        <button id="mode-type-btn" class="tg-mode-btn active" type="button">Type</button>
+        <button id="mode-poster-btn" class="tg-mode-btn" type="button">Poster</button>
+      </div>
+      <button id="btn-custom-toggle" class="tg-pill-btn" type="button" title="Customize Garden">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Customize</span>
+      </button>
+    </div>
+
+    <!-- Customize Drawer / Settings Popover -->
+    <div id="custom-drawer" class="custom-drawer">
+      <div class="drawer-header">
+        <span class="drawer-title">Garden Customizer</span>
+        <button id="btn-close-drawer" class="drawer-close" type="button">✕</button>
+      </div>
+
+      <!-- Flower Varieties -->
+      <div class="drawer-group">
+        <span class="drawer-label">Flower Variety</span>
+        <div id="flower-chips" class="chips-grid">
+          <button class="chip-btn active" data-flower="rose" type="button">🌹 Rose</button>
+          <button class="chip-btn" data-flower="sakura" type="button">🌸 Sakura</button>
+          <button class="chip-btn" data-flower="daisy" type="button">🌼 Daisy</button>
+          <button class="chip-btn" data-flower="orchid" type="button">🌺 Orchid</button>
+          <button class="chip-btn" data-flower="mixed" type="button">💐 Meadow Blend</button>
+        </div>
+      </div>
+
+      <!-- Typeface Selection -->
+      <div class="drawer-group">
+        <span class="drawer-label">Typeface</span>
+        <div id="font-chips" class="chips-grid">
+          <button class="chip-btn active" data-font="playfair" type="button" style="font-family:'Playfair Display',serif">Playfair</button>
+          <button class="chip-btn" data-font="bodoni" type="button" style="font-family:'Bodoni Moda',serif">Bodoni</button>
+          <button class="chip-btn" data-font="cinzel" type="button" style="font-family:'Cinzel',serif">Cinzel</button>
+          <button class="chip-btn" data-font="cormorant" type="button" style="font-family:'Cormorant Garamond',serif">Cormorant</button>
+          <button class="chip-btn" data-font="syne" type="button" style="font-family:'Syne',sans-serif">Syne</button>
+          <button class="chip-btn" data-font="mono" type="button" style="font-family:'DM Mono',monospace">Mono</button>
+        </div>
+      </div>
+
+      <!-- Dynamic Motion Controls -->
+      <div class="drawer-group">
+        <span class="drawer-label">Motion & Dynamics</span>
+        <div class="slider-row">
+          <span>Density</span>
+          <input id="slider-density" type="range" min="0.5" max="1.8" step="0.1" value="1.0">
+          <span id="val-density" class="slider-val">1.0x</span>
+        </div>
+        <div class="slider-row">
+          <span>Speed</span>
+          <input id="slider-speed" type="range" min="0.4" max="2.0" step="0.1" value="1.0">
+          <span id="val-speed" class="slider-val">1.0x</span>
+        </div>
+        <div class="slider-row">
+          <span>Wind Sway</span>
+          <input id="slider-wind" type="range" min="0" max="2.5" step="0.1" value="1.0">
+          <span id="val-wind" class="slider-val">1.0x</span>
+        </div>
+      </div>
+
+      <!-- Audio Synthesizer Toggle -->
+      <div class="drawer-group">
+        <span class="drawer-label">Botanical Audio</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;color:#DDD;">Pentatonic Chimes</span>
+          <button id="btn-audio-toggle" class="chip-btn" type="button">Sound: Off</button>
+        </div>
+      </div>
+
+      <!-- Custom Palette Live Tuner -->
+      <div class="drawer-group">
+        <span class="drawer-label">Custom Palette Colors</span>
+        <div class="color-pickers-row">
+          <div class="color-picker-item">
+            <span>Bg</span>
+            <input id="cp-bg" type="color" value="#000000">
+          </div>
+          <div class="color-picker-item">
+            <span>Flower</span>
+            <input id="cp-flower" type="color" value="#FF1400">
+          </div>
+          <div class="color-picker-item">
+            <span>Stem</span>
+            <input id="cp-stem" type="color" value="#3257FF">
+          </div>
+          <div class="color-picker-item">
+            <span>Line</span>
+            <input id="cp-line" type="color" value="#FFB4A8">
+          </div>
+          <div class="color-picker-item">
+            <span>Type</span>
+            <input id="cp-type" type="color" value="#FFFFFF">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type Bar (Bottom) -->
+    <div id="bar" data-tg="bar">
+      <div data-tg="hints">
+        <span data-tg="fine">type to grow</span>
+        <span data-tg="coarse">tap to type</span>
+        <span>space cuts</span>
+        <span data-tg="fine">backspace withers</span>
+        <span data-tg="coarse">⌫ withers</span>
+        <span data-tg="fine">enter clears</span>
+        <span data-tg="coarse">return clears</span>
+        <span id="live-count" data-tg="count"></span>
+      </div>
+      <div data-tg="ctrls">
+        <div id="type-palettes" data-tg="pal"></div>
+        <button id="btn-sound-bar" class="tg-icon-btn" type="button" title="Toggle Sound">🔇</button>
+        <button id="btn-png" class="tg-btn" type="button">PNG</button>
+        <button id="btn-svg" class="tg-btn" type="button">SVG</button>
+      </div>
+    </div>
+
+    <!-- Poster View (Initially hidden) -->
+    <div id="poster" data-tg="poster" style="display:none;">
+      <div data-tg="panel">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div class="poster-heading">Poster</div>
+          <div id="poster-info-label" style="color:#8C8C8C">1:1 · 3s loop · 30 fps</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="section-title">Words</div>
+          <input id="poster-text" class="poster-input" value="in bloom" spellcheck="false">
+          <button id="btn-reshuffle" class="regrow-btn" type="button">Regrow garden</button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="section-title">Motion Presets</div>
+          <div id="poster-presets" class="presets-grid"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="section-title">Palettes</div>
+          <div id="poster-palettes" class="palettes-grid"></div>
+        </div>
+
+        <div class="export-section">
+          <div class="section-title">Export · 1080 × 1080 loop</div>
+          <button id="btn-export-video" class="btn-export-primary" type="button">Export loop</button>
+          <button id="btn-export-frames" class="btn-export-secondary" type="button">PNG frames (.zip)</button>
+          <div id="export-status" class="export-status"></div>
+        </div>
+      </div>
+
+      <div data-tg="stage">
+        <canvas id="pcv" data-tg="pcanvas" width="1080" height="1080"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    // Pentatonic scale synthesizer for meditative typing audio
+    class GardenAudio {
+      constructor() {
+        this.ctx = null;
+        this.enabled = false;
+        // Pentatonic notes [C3, E3, G3, A3, C4, D4, E4, G4, A4, C5, D5, E5, G5]
+        this.notes = [130.81, 164.81, 196.00, 220.00, 261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99];
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      toggle() {
+        this.init();
+        this.enabled = !this.enabled;
+        return this.enabled;
+      }
+      playBloom(seed) {
+        if (!this.enabled || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const idx = Math.abs(seed) % this.notes.length;
+        const freq = this.notes[idx];
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1400, now);
+        filter.frequency.exponentialRampToValueAtTime(300, now + 0.35);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(0.12, now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.48);
+      }
+      playCut() {
+        if (!this.enabled || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(110.0, now);
+        osc.frequency.exponentialRampToValueAtTime(82.4, now + 0.22);
+
+        gain.gain.setValueAtTime(0.14, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.26);
+      }
+      playWither() {
+        if (!this.enabled || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(320.0, now);
+        osc.frequency.exponentialRampToValueAtTime(160.0, now + 0.3);
+
+        gain.gain.setValueAtTime(0.07, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.33);
+      }
+    }
+
+    class TypeGarden {
+      constructor() {
+        this.appEl = document.getElementById('app');
+        this.cv = document.getElementById('cv');
+        this.pcv = document.getElementById('pcv');
+        this.inp = document.getElementById('inp');
+        this.peersEl = document.getElementById('peers');
+        this.barEl = document.getElementById('bar');
+        this.posterEl = document.getElementById('poster');
+        this.modeTypeBtn = document.getElementById('mode-type-btn');
+        this.modePosterBtn = document.getElementById('mode-poster-btn');
+        this.typePalettesEl = document.getElementById('type-palettes');
+        this.posterPalettesEl = document.getElementById('poster-palettes');
+        this.posterPresetsEl = document.getElementById('poster-presets');
+        this.posterTextEl = document.getElementById('poster-text');
+        this.btnReshuffle = document.getElementById('btn-reshuffle');
+        this.posterInfoLabel = document.getElementById('poster-info-label');
+        this.btnPng = document.getElementById('btn-png');
+        this.btnSvg = document.getElementById('btn-svg');
+        this.btnExportVideo = document.getElementById('btn-export-video');
+        this.btnExportFrames = document.getElementById('btn-export-frames');
+        this.exportStatusEl = document.getElementById('export-status');
+        this.liveCountEl = document.getElementById('live-count');
+
+        // Customizer elements
+        this.customDrawer = document.getElementById('custom-drawer');
+        this.btnCustomToggle = document.getElementById('btn-custom-toggle');
+        this.btnCloseDrawer = document.getElementById('btn-close-drawer');
+        this.flowerChips = document.getElementById('flower-chips');
+        this.fontChips = document.getElementById('font-chips');
+        this.sliderDensity = document.getElementById('slider-density');
+        this.valDensity = document.getElementById('val-density');
+        this.sliderSpeed = document.getElementById('slider-speed');
+        this.valSpeed = document.getElementById('val-speed');
+        this.sliderWind = document.getElementById('slider-wind');
+        this.valWind = document.getElementById('val-wind');
+        this.btnAudioToggle = document.getElementById('btn-audio-toggle');
+        this.btnSoundBar = document.getElementById('btn-sound-bar');
+
+        // Color pickers
+        this.cpBg = document.getElementById('cp-bg');
+        this.cpFlower = document.getElementById('cp-flower');
+        this.cpStem = document.getElementById('cp-stem');
+        this.cpLine = document.getElementById('cp-line');
+        this.cpType = document.getElementById('cp-type');
+
+        this.audio = new GardenAudio();
+
+        this.FONTS = {
+          playfair: '"Playfair Display", Georgia, serif',
+          bodoni: '"Bodoni Moda", Georgia, serif',
+          cinzel: '"Cinzel", Georgia, serif',
+          cormorant: '"Cormorant Garamond", Georgia, serif',
+          syne: '"Syne", sans-serif',
+          mono: '"DM Mono", ui-monospace, monospace'
+        };
+
+        this.FLOWERS = ['iris', 'fern', 'poppy', 'tulip', 'violet', 'clover', 'daisy', 'lilac', 'aster', 'peony', 'sorrel', 'yarrow', 'thistle', 'bluebell', 'foxglove', 'primrose'];
+        this.TINTS = ['#FF8A00', '#E63CFF', '#7FD18B', '#9FB4FF', '#FFB7C5', '#FFE2B8', '#2FB8A6', '#FFD23F'];
+        this.SENT = String.fromCharCode(0x200b);
+
+        this.PRESETS = [
+          { id: 'breathe', label: 'Breathe', sub: 'Slow sway · 3s', T: 3000 },
+          { id: 'grow', label: 'Grow & wither', sub: 'Bloom, then back · 6s', T: 6000 },
+          { id: 'typed', label: 'Typed', sub: 'Type, cut, repeat · 5s', T: 5000 },
+          { id: 'wind', label: 'Gust', sub: 'Wind sweeps through · 4s', T: 4000 },
+          { id: 'reach', label: 'Reach', sub: 'Stems follow a light · 6s', T: 6000 },
+          { id: 'scatter', label: 'Scatter', sub: 'Random bloom, fade · 6s', T: 6000 },
+          { id: 'visit', label: 'Visitor', sub: 'Butterfly drops by · 7s', T: 7000 }
+        ];
+
+        // 14 Palettes (10 Original + 4 New Botanical Moods)
+        this.PAL = [
+          ['Rose noir', '#000000', '#FF1400', '#3257FF', '#FFB4A8', '#FFFFFF'],
+          ['Paper', '#F3EEE4', '#FF3B1F', '#1C2B8F', '#FFD2C4', '#111111'],
+          ['Midnight', '#0D1B4C', '#FF5A4E', '#9FB4FF', '#FFD6CF', '#FFFFFF'],
+          ['Citrus', '#0E1A12', '#FF8A00', '#1FA463', '#FFE2B8', '#FFF6E8'],
+          ['Orchid', '#140A1F', '#E63CFF', '#2FB8A6', '#F9D1FF', '#FFFFFF'],
+          ['Moss', '#133A2A', '#FFB7C5', '#7FD18B', '#FFFFFF', '#F6F1E7'],
+          ['Tomato', '#FF1400', '#FFF1E0', '#0B0B0B', '#FF1400', '#000000'],
+          ['Butter', '#FFE9A8', '#E4002B', '#0F5132', '#FFC2C2', '#1A1A1A'],
+          ['Blush', '#FAD4D8', '#C8102E', '#274690', '#FFE3E6', '#1A1A1A'],
+          ['Mono', '#000000', '#F2F2F2', '#6E6E6E', '#000000', '#FFFFFF'],
+          ['Sakura Twilight', '#0D0F1F', '#FFB7C5', '#48B88F', '#FFD166', '#FFFFFF'],
+          ['Cyber Flora', '#0A0A0C', '#D946EF', '#06B6D4', '#F43F5E', '#FFFFFF'],
+          ['Solaris', '#1A0F0A', '#F59E0B', '#3F6212', '#FCD34D', '#FFFBEB'],
+          ['Ethereal', '#0F172A', '#C4B5FD', '#5EEAD4', '#CBD5E1', '#F8FAFC']
+        ];
+
+        this.customPalette = ['Custom', '#000000', '#FF1400', '#3257FF', '#FFB4A8', '#FFFFFF'];
+
+        this.props = {
+          boil: true,
+          recoil: 20,
+          density: 1.0,
+          speed: 1.0,
+          windScale: 1.0,
+          flowerVariety: 'rose', // 'rose', 'sakura', 'daisy', 'orchid', 'mixed'
+          fontKey: 'playfair',
+          showHint: true
+        };
+
+        this.F = this.FONTS[this.props.fontKey];
+
+        this.state = {
+          mode: 'type',
+          preset: 'breathe',
+          palette: 0,
+          isCustomPalette: false,
+          text: 'in bloom',
+          seed: 7,
+          status: '',
+          busy: false
+        };
+
+        this.init();
+      }
+
+      init() {
+        this.letters = [];
+        this.uid = 1;
+        this.cache = {};
+        this.Sd = 0;
+        this.St = 0;
+        this.wrapped = false;
+        this.t0 = performance.now();
+        this.lastKey = 0;
+        this.rand = Math.random;
+        this.g = this.cv.getContext('2d');
+        this.fa = {};
+        this.mx = null;
+        this.my = null;
+        this.flies = [];
+        this.perch = [];
+        this.peers = new Map();
+        this.gifts = [];
+
+        this.touch = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+        if (this.touch) document.documentElement.setAttribute('data-touch', '');
+        this.ptype = 'mouse';
+
+        this.iv = this.SENT;
+        if (this.inp) this.inp.value = this.SENT;
+
+        this.vmime = typeof MediaRecorder !== 'undefined'
+          ? ['video/mp4;codecs=avc1.42E01E', 'video/mp4', 'video/webm;codecs=vp9', 'video/webm'].find(m => MediaRecorder.isTypeSupported(m))
+          : null;
+
+        this.setupEventListeners();
+        this.setupUI();
+        this.resize();
+        this.liveInit();
+        this.buildPoster();
+
+        // Preload Google Fonts
+        if (document.fonts) {
+          Object.values(this.FONTS).forEach(fontSpec => {
+            document.fonts.load(`700 100px ${fontSpec}`).then(() => {
+              this.cache = {};
+              this.layout();
+              this.buildPoster();
+            }).catch(() => {});
+          });
+        }
+
+        if (!this.touch && this.inp) {
+          setTimeout(() => this.inp.focus({ preventScroll: true }), 50);
+        }
+
+        const loop = () => {
+          this.raf = requestAnimationFrame(loop);
+          this.frame();
+        };
+        loop();
+      }
+
+      setupEventListeners() {
+        window.addEventListener('resize', () => this.resize());
+        window.addEventListener('keydown', e => this.key(e));
+        window.addEventListener('pointermove', e => {
+          this.mx = e.clientX;
+          this.my = e.clientY;
+        });
+        document.addEventListener('pointerleave', () => { this.mx = null; });
+        document.addEventListener('mouseout', e => {
+          if (!e.relatedTarget) {
+            this.mx = null;
+            this.sentX = null;
+            this.liveSend('p', { i: this.me.id, h: 1 });
+          }
+        });
+
+        window.addEventListener('pointerdown', e => {
+          this.ptype = e.pointerType || 'mouse';
+          this.audio.init();
+          if (this.state.mode === 'type' && !e.target.closest('button, input, [data-tg="ctrls"], .custom-drawer')) {
+            this.focusInput(e);
+          }
+        }, true);
+
+        window.addEventListener('pointerup', e => {
+          if (e.pointerType && e.pointerType !== 'mouse') this.mx = null;
+        });
+        window.addEventListener('pointercancel', e => {
+          if (e.pointerType && e.pointerType !== 'mouse') this.mx = null;
+        });
+
+        if (this.inp) {
+          this.inp.addEventListener('compositionstart', () => { this.composing = true; });
+          this.inp.addEventListener('compositionend', () => {
+            this.composing = false;
+            setTimeout(() => {
+              if (this.inp && !this.composing) this.inputDiff(this.inp);
+            }, 0);
+          });
+          this.inp.addEventListener('input', e => this.inputDiff(e.target));
+        }
+
+        this.vv = window.visualViewport || null;
+        this.vvMax = 0;
+        if (this.vv && this.touch) {
+          const sync = () => this.syncVV();
+          this.vv.addEventListener('resize', sync);
+          this.vv.addEventListener('scroll', sync);
+          this.syncVV();
+        }
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.liveSend('p', { i: this.me.id, h: 1 });
+            this._idleT = setTimeout(() => this.liveClose(), 60000);
+          } else {
+            clearTimeout(this._idleT);
+            if (!this.net) this.liveConnect();
+          }
+        });
+      }
+
+      setupUI() {
+        this.modeTypeBtn.onclick = () => this.setMode('type');
+        this.modePosterBtn.onclick = () => this.setMode('poster');
+
+        // Customize drawer toggle
+        this.btnCustomToggle.onclick = e => {
+          e.stopPropagation();
+          this.customDrawer.classList.toggle('open');
+          this.btnCustomToggle.classList.toggle('active', this.customDrawer.classList.contains('open'));
+        };
+        this.btnCloseDrawer.onclick = () => {
+          this.customDrawer.classList.remove('open');
+          this.btnCustomToggle.classList.remove('active');
+        };
+
+        // Flower selection chips
+        this.flowerChips.querySelectorAll('.chip-btn').forEach(btn => {
+          btn.onclick = () => {
+            this.flowerChips.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.props.flowerVariety = btn.dataset.flower;
+            this.cache = {};
+            this.letters.forEach(l => { if (l.ch !== ' ') this.gen(l); });
+            this.buildPoster();
+          };
+        });
+
+        // Font selection chips
+        this.fontChips.querySelectorAll('.chip-btn').forEach(btn => {
+          btn.onclick = () => {
+            this.fontChips.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.props.fontKey = btn.dataset.font;
+            this.F = this.FONTS[this.props.fontKey];
+            this.posterTextEl.style.fontFamily = this.F;
+            this.cache = {};
+            this.layout(true);
+            this.buildPoster();
+          };
+        });
+
+        // Slider inputs
+        this.sliderDensity.oninput = e => {
+          this.props.density = parseFloat(e.target.value);
+          this.valDensity.textContent = this.props.density.toFixed(1) + 'x';
+          this.letters.forEach(l => { if (l.ch !== ' ') this.gen(l); });
+          this.buildPoster();
+        };
+        this.sliderSpeed.oninput = e => {
+          this.props.speed = parseFloat(e.target.value);
+          this.valSpeed.textContent = this.props.speed.toFixed(1) + 'x';
+        };
+        this.sliderWind.oninput = e => {
+          this.props.windScale = parseFloat(e.target.value);
+          this.valWind.textContent = this.props.windScale.toFixed(1) + 'x';
+        };
+
+        // Audio toggle
+        const updateAudioUI = on => {
+          this.btnAudioToggle.textContent = on ? 'Sound: On 🔊' : 'Sound: Off 🔇';
+          this.btnAudioToggle.classList.toggle('active', on);
+          this.btnSoundBar.textContent = on ? '🔊' : '🔇';
+          this.btnSoundBar.classList.toggle('active', on);
+        };
+        this.btnAudioToggle.onclick = () => updateAudioUI(this.audio.toggle());
+        this.btnSoundBar.onclick = () => updateAudioUI(this.audio.toggle());
+
+        // Custom palette color inputs
+        const onCustomColorChange = () => {
+          this.state.isCustomPalette = true;
+          this.customPalette = [
+            'Custom',
+            this.cpBg.value,
+            this.cpFlower.value,
+            this.cpStem.value,
+            this.cpLine.value,
+            this.cpType.value
+          ];
+          this.updateThemeColors();
+          this.updatePaletteUI();
+          this.buildPoster();
+        };
+        [this.cpBg, this.cpFlower, this.cpStem, this.cpLine, this.cpType].forEach(cp => {
+          cp.addEventListener('input', onCustomColorChange);
+        });
+
+        // Render palette swatches
+        this.renderPalettes();
+
+        // Populate poster presets
+        this.posterPresetsEl.innerHTML = '';
+        this.PRESETS.forEach(pr => {
+          const btn = document.createElement('button');
+          btn.className = `preset-btn ${pr.id === this.state.preset ? 'active' : ''}`;
+          btn.type = 'button';
+          btn.innerHTML = `<span class="preset-label">${pr.label}</span><span class="preset-sub">${pr.sub}</span>`;
+          btn.onclick = () => this.setPreset(pr.id);
+          this.posterPresetsEl.appendChild(btn);
+        });
+
+        // Poster text and regrow
+        this.posterTextEl.oninput = e => {
+          this.state.text = e.target.value;
+          this.buildPoster();
+        };
+        this.btnReshuffle.onclick = () => {
+          this.state.seed = Math.floor(Math.random() * 1e6);
+          this.buildPoster();
+        };
+
+        // Export handlers
+        this.btnPng.onclick = () => { this.savePNG(); this.refocus(); };
+        this.btnSvg.onclick = () => { this.saveSVG(); this.refocus(); };
+        this.btnExportVideo.onclick = () => this.exportVideo();
+        this.btnExportFrames.onclick = () => this.exportFrames();
+
+        this.updateThemeColors();
+      }
+
+      renderPalettes() {
+        this.typePalettesEl.innerHTML = '';
+        this.PAL.forEach((p, idx) => {
+          const btn = document.createElement('button');
+          btn.className = `tg-sw ${!this.state.isCustomPalette && idx === this.state.palette ? 'active' : ''}`;
+          btn.type = 'button';
+          btn.title = p[0];
+          btn.setAttribute('aria-label', p[0]);
+          btn.style.background = p[1];
+          btn.style.borderColor = idx === this.state.palette ? '#FFFFFF' : (p[1] === this.pal().bg ? '#3A3A3A' : 'transparent');
+          btn.innerHTML = `<span class="tg-dot" style="background:${p[2]}"></span>`;
+          btn.onclick = e => {
+            e.stopPropagation();
+            this.state.isCustomPalette = false;
+            this.setPalette(idx);
+          };
+          this.typePalettesEl.appendChild(btn);
+        });
+
+        this.posterPalettesEl.innerHTML = '';
+        this.PAL.forEach((p, idx) => {
+          const card = document.createElement('button');
+          card.className = `pal-card ${!this.state.isCustomPalette && idx === this.state.palette ? 'active' : ''}`;
+          card.type = 'button';
+          card.innerHTML = `
+            <span class="pal-preview" style="background:${p[1]}">
+              <span class="pal-preview-flower" style="background:${p[2]}"></span>
+              <span class="pal-preview-stem" style="background:${p[3]}"></span>
+              <span class="pal-preview-text" style="color:${p[5]}">Aa</span>
+            </span>
+            <span style="padding:0 4px">${p[0]}</span>
+          `;
+          card.onclick = () => {
+            this.state.isCustomPalette = false;
+            this.setPalette(idx);
+          };
+          this.posterPalettesEl.appendChild(card);
+        });
+      }
+
+      setMode(mode) {
+        if (this.state.mode === mode) return;
+        this.state.mode = mode;
+        if (mode === 'poster') {
+          const currentWords = this.liveText();
+          if (currentWords) {
+            this.state.text = currentWords;
+            this.posterTextEl.value = currentWords;
+          }
+          this.modeTypeBtn.classList.remove('active');
+          this.modePosterBtn.classList.add('active');
+          this.cv.style.display = 'none';
+          this.peersEl.style.display = 'none';
+          this.barEl.style.display = 'none';
+          this.customDrawer.classList.remove('open');
+          this.btnCustomToggle.classList.remove('active');
+          this.posterEl.style.display = 'grid';
+          this.buildPoster();
+        } else {
+          this.modeTypeBtn.classList.add('active');
+          this.modePosterBtn.classList.remove('active');
+          this.cv.style.display = 'block';
+          this.peersEl.style.display = 'block';
+          this.barEl.style.display = 'flex';
+          this.posterEl.style.display = 'none';
+          this.resize();
+          this.refocus();
+        }
+      }
+
+      setPalette(idx) {
+        this.state.palette = idx;
+        const cur = this.pal();
+        this.cpBg.value = cur.bg;
+        this.cpFlower.value = cur.C.red;
+        this.cpStem.value = cur.C.blue;
+        this.cpLine.value = cur.C.line;
+        this.cpType.value = cur.C.text;
+
+        this.updateThemeColors();
+        this.updatePaletteUI();
+        this.buildPoster();
+        this.refocus();
+      }
+
+      setPreset(id) {
+        this.state.preset = id;
+        this.updatePresetUI();
+        this.buildPoster();
+      }
+
+      updateThemeColors() {
+        const p = this.pal();
+        this.appEl.style.background = p.bg;
+        this.barEl.style.color = p.C.text;
+        const tint = this.state.isCustomPalette ? this.customPalette : this.PAL[this.state.palette];
+        if (tint) {
+          const ds = document.documentElement.style;
+          ds.setProperty('--tg-flower', tint[2]);
+          ds.setProperty('--tg-stem', tint[3]);
+          ds.setProperty('--tg-detail', tint[4]);
+        }
+      }
+
+      updatePaletteUI() {
+        const swatches = this.typePalettesEl.children;
+        const cards = this.posterPalettesEl.children;
+        for (let i = 0; i < this.PAL.length; i++) {
+          const isAct = !this.state.isCustomPalette && i === this.state.palette;
+          if (swatches[i]) {
+            swatches[i].classList.toggle('active', isAct);
+            swatches[i].style.borderColor = isAct ? '#FFFFFF' : (this.PAL[i][1] === this.pal().bg ? '#3A3A3A' : 'transparent');
+          }
+          if (cards[i]) {
+            cards[i].classList.toggle('active', isAct);
+          }
+        }
+      }
+
+      updatePresetUI() {
+        const preset = this.preset();
+        this.posterInfoLabel.textContent = `1:1 · ${preset.T / 1000}s loop · 30 fps`;
+        const buttons = this.posterPresetsEl.children;
+        for (let i = 0; i < this.PRESETS.length; i++) {
+          buttons[i].classList.toggle('active', this.PRESETS[i].id === this.state.preset);
+        }
+      }
+
+      focusInput(ev) {
+        if (!this.inp) return;
+        const isTouch = ev && ev.pointerType && ev.pointerType !== 'mouse';
+        if (isTouch) {
+          if (ev.cancelable) ev.preventDefault();
+          this.inp.focus({ preventScroll: true });
+        } else {
+          this.inp.focus({ preventScroll: true });
+        }
+        if (ev && (ev.target === this.cv || ev.target === this.appEl)) {
+          this.spawnFly(ev.clientX, ev.clientY);
+        }
+      }
+
+      refocus() {
+        if (this.ptype === 'mouse' && this.state.mode === 'type' && this.inp) {
+          this.inp.focus({ preventScroll: true });
+        }
+      }
+
+      // ---------- Math & Utilities ----------
+      h(n) { const x = Math.sin(n) * 43758.5453; return x - Math.floor(x); }
+      spr(t, k = 7, w = 16) { if (t <= 0) return 0; return 1 - Math.exp(-t * k) * Math.cos(t * w); }
+      eo(t) { if (t <= 0) return 0; if (t >= 1) return 1; return 1 - Math.pow(1 - t, 3); }
+      eb(t) { if (t <= 0) return 0; if (t >= 1) return 1; const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); }
+      rng(seed) {
+        let s = seed | 0;
+        return () => {
+          s = (s + 0x6D2B79F5) | 0;
+          let t = Math.imul(s ^ (s >>> 15), 1 | s);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      bez(a, b, c, d, n) {
+        const P = [];
+        for (let i = 0; i <= n; i++) {
+          const t = i / n, u = 1 - t;
+          P.push([
+            u*u*u*a[0] + 3*u*u*t*b[0] + 3*u*t*t*c[0] + t*t*t*d[0],
+            u*u*u*a[1] + 3*u*u*t*b[1] + 3*u*t*t*c[1] + t*t*t*d[1]
+          ]);
+        }
+        return P;
+      }
+      at(P, u) {
+        const n = P.length;
+        const i = Math.min(n - 2, Math.max(1, Math.round(u * (n - 1))));
+        return [P[i], Math.atan2(P[i+1][1] - P[i-1][1], P[i+1][0] - P[i-1][0])];
+      }
+      jit(id, f, amp) {
+        if (!amp) return [0, 0, 0];
+        return [
+          (this.h(id*1.37 + f*7.13)*2 - 1)*amp,
+          (this.h(id*2.71 + f*3.11)*2 - 1)*amp,
+          (this.h(id*5.3 + f*1.7)*2 - 1)*0.035
+        ];
+      }
+      path(c, p, closed) {
+        const n = p.length; if (n < 2) return;
+        const m = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+        if (closed) {
+          const s = m(p[n-1], p[0]); c.moveTo(s[0], s[1]);
+          for (let i = 0; i < n; i++) {
+            const q = m(p[i], p[(i+1) % n]);
+            c.quadraticCurveTo(p[i][0], p[i][1], q[0], q[1]);
+          }
+          c.closePath();
+        } else {
+          c.moveTo(p[0][0], p[0][1]);
+          for (let i = 1; i < n - 1; i++) {
+            const q = m(p[i], p[i+1]);
+            c.quadraticCurveTo(p[i][0], p[i][1], q[0], q[1]);
+          }
+          c.lineTo(p[n-1][0], p[n-1][1]);
+        }
+      }
+      backend(g) {
+        return {
+          fill: (p, col) => { g.beginPath(); this.path(g, p, true); g.fillStyle = col; g.fill(); },
+          stroke: (p, col, w) => { g.beginPath(); this.path(g, p, false); g.strokeStyle = col; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round'; g.stroke(); },
+          rect: (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(x, y, w, h); },
+          text: (ch, x, y, S, col) => { g.font = `700 ${S}px ${this.F}`; g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.fillStyle = col; g.fillText(ch, x, y); }
+        };
+      }
+      vine(base, dir, len, amp, waves, ph, bend, n = 40) {
+        const P = [[base[0], base[1]]], step = len / n;
+        let x = base[0], y = base[1];
+        for (let i = 1; i <= n; i++) {
+          const u = i / n, a = dir + bend * u + amp * Math.sin(u * Math.PI * waves + ph) * Math.min(1, u * 3);
+          x += Math.cos(a) * step;
+          y += Math.sin(a) * step;
+          P.push([x, y]);
+        }
+        return P;
+      }
+      curl(P, sign, rad) {
+        const n = P.length, e = P[n - 1], a = Math.atan2(e[1] - P[n - 2][1], e[0] - P[n - 2][0]);
+        const c = [e[0] - Math.sin(a) * sign * rad, e[1] + Math.cos(a) * sign * rad];
+        const a0 = Math.atan2(e[1] - c[1], e[0] - c[0]);
+        for (let i = 1; i <= 14; i++) {
+          const u = i / 14, t = a0 + sign * u * Math.PI * 1.6, rr = rad * (1 - 0.5 * u);
+          P.push([c[0] + Math.cos(t) * rr, c[1] + Math.sin(t) * rr]);
+        }
+        return P;
+      }
+      weave(r, startLayer) {
+        const cuts = [];
+        const nc = 1 + Math.floor(r() * 3);
+        for (let i = 0; i < nc; i++) cuts.push(0.15 + r() * 0.7);
+        cuts.sort((a, b) => a - b);
+        const segs = [];
+        let u0 = 0, layer = startLayer;
+        for (const c of cuts) {
+          if (c <= u0) continue;
+          segs.push({ u0, u1: c, layer });
+          if (r() < 0.3) {
+            const g = 0.02 + r() * 0.03;
+            u0 = Math.min(0.98, c + g);
+          } else u0 = c;
+          layer = 1 - layer;
+        }
+        segs.push({ u0, u1: 1, layer });
+        return segs;
+      }
+      layerAt(segs, u) {
+        for (const s of segs) if (u >= s.u0 && u <= s.u1) return s.layer;
+        return segs[segs.length - 1].layer;
+      }
+
+      // ---------- Layout ----------
+      resize() {
+        const c = this.cv;
+        if (!c) return;
+        const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+        if (!r.width) return;
+        this.W = r.width;
+        this.H = r.height;
+        this.dpr = d;
+        c.width = Math.round(r.width * d);
+        c.height = Math.round(r.height * d);
+        this.layout(true);
+      }
+      mw(ch) {
+        if (this.cache[ch] != null) return this.cache[ch];
+        this.g.font = `700 100px ${this.F}`;
+        let w = this.g.measureText(ch).width / 100;
+        if (ch === ' ') w *= 1.4;
+        return (this.cache[ch] = w);
+      }
+      layoutCore(A, W, H, prevWrapped) {
+        const maxW = W * 0.8, S0 = H * 0.28, LH = 2.1;
+        const ws = A.map(l => this.mw(l.ch));
+        const words = [];
+        let cur = null;
+        A.forEach((l, i) => {
+          if (l.ch === ' ') {
+            if (cur) { words.push(cur); cur = null; }
+            words.push({ sp: true, idx: [i] });
+          } else {
+            if (!cur) cur = { idx: [] };
+            cur.idx.push(i);
+          }
+        });
+        if (cur) words.push(cur);
+        const lineW = (li, S) => {
+          let e = li.length;
+          while (e > 0 && A[li[e-1]].ch === ' ') e--;
+          let w = 0;
+          for (let k = 0; k < e; k++) w += ws[li[k]];
+          return w * S;
+        };
+        const wrap = S => {
+          const lines = [[]];
+          let lw = 0;
+          for (const w of words) {
+            const ww = w.idx.reduce((s, i) => s + ws[i], 0) * S;
+            if (!w.sp && lw > 0 && lw + ww > maxW) {
+              lines.push([]);
+              lw = 0;
+            }
+            lines[lines.length - 1].push(...w.idx);
+            lw += ww;
+          }
+          return lines;
+        };
+        let lines = [A.map((_, i) => i)];
+        const unit = lineW(lines[0], 1);
+        let S = unit > 0 ? Math.min(S0, maxW / unit) : S0;
+        const multi = words.filter(w => !w.sp).length > 1;
+        let wrapped = multi && (S < H * 0.1 || (prevWrapped && S < H * 0.14));
+        if (wrapped) {
+          let lo = H * 0.03, hi = H * 0.15;
+          for (let k = 0; k < 22; k++) {
+            const mid = (lo + hi) / 2, ls = wrap(mid);
+            const ok = ls.every(li => lineW(li, mid) <= maxW) && ls.length * LH * mid <= H * 0.82;
+            if (ok) lo = mid; else hi = mid;
+          }
+          S = lo;
+          lines = wrap(S);
+          if (lines.length < 2) wrapped = false;
+        }
+        const n = lines.length, lh = LH * S;
+        lines.forEach((li, k) => {
+          let x = W / 2 - lineW(li, S) / 2;
+          const y = H / 2 + (k - (n - 1) / 2) * lh + 0.33 * S;
+          li.forEach(i => {
+            const l = A[i], w = ws[i] * S;
+            l.tx = x + w / 2;
+            l.ty = y;
+            l.tw = w;
+            l.line = k;
+            x += w;
+          });
+        });
+        return { S, wrapped, n };
+      }
+      layout(snap) {
+        if (!this.W) return;
+        const A = this.letters.filter(l => !l.dead);
+        const res = this.layoutCore(A, this.W, this.H, this.wrapped);
+        this.wrapped = res.wrapped;
+        A.forEach(l => { if (l.x == null) { l.x = l.tx; l.y = l.ty; } });
+        const S = res.S, last = A[A.length - 1];
+        this.St = S;
+        this.ctx_ = last ? last.tx + last.tw / 2 + 0.07 * S : this.W / 2;
+        this.cty = last ? last.ty - 0.33 * S : this.H / 2;
+        if (snap || !this.Sd) {
+          this.Sd = S;
+          this.cx = this.ctx_;
+          this.cy = this.cty;
+          A.forEach(l => { l.x = l.tx; l.y = l.ty; });
+        }
+      }
+
+      // ---------- Multiplayer / Local Broadcast ----------
+      liveInit() {
+        const pick = a => a[Math.floor(Math.random() * a.length)];
+        this.me = { id: Math.random().toString(36).slice(2, 10), n: pick(this.FLOWERS), c: pick(this.TINTS) };
+        this.others = 0;
+        this.lastSend = 0;
+        this.sentX = null;
+        this.sentY = null;
+        this.roster = {};
+
+        this.onPlant = e => {
+          if (this.state.mode !== 'type' || e.target !== this.cv) return;
+          const now = performance.now(), lp = this.lastTap;
+          this.lastTap = { t: now, x: e.clientX, y: e.clientY };
+          if (lp && now - lp.t < 340 && Math.hypot(e.clientX - lp.x, e.clientY - lp.y) < 40 && now - (this.lastPlant || 0) > 1800) {
+            this.lastPlant = now;
+            this.lastTap = null;
+            const g = {
+              x: Math.round(e.clientX / this.W * 1000) / 1000,
+              y: Math.round(e.clientY / this.H * 1000) / 1000,
+              s: Math.floor(Math.random() * 1e6)
+            };
+            this.liveRose(g);
+            this.liveSend('r', g);
+          }
+        };
+        window.addEventListener('pointerdown', this.onPlant);
+        setTimeout(() => this.liveConnect(), 500);
+      }
+
+      liveConnect() {
+        if (this.net) return;
+        if (typeof BroadcastChannel !== 'undefined') {
+          const bc = new BroadcastChannel('tg-live');
+          const roster = new Map();
+          const publish = () => {
+            const now = Date.now(), out = {};
+            for (const [k, v] of roster) {
+              if (now - v.t > 3500) roster.delete(k);
+              else out[k] = { n: v.n, c: v.c };
+            }
+            this.livePresence(out);
+          };
+          const beat = () => {
+            roster.set(this.me.id, { n: this.me.n, c: this.me.c, t: Date.now() });
+            bc.postMessage({ k: 'hello', id: this.me.id, n: this.me.n, c: this.me.c });
+            publish();
+          };
+          bc.onmessage = ({ data: d }) => {
+            if (d.k === 'hello') {
+              const had = roster.has(d.id);
+              roster.set(d.id, { n: d.n, c: d.c, t: Date.now() });
+              if (!had) publish();
+            } else if (d.k === 'bye') {
+              roster.delete(d.id);
+              publish();
+            } else if (d.k === 'p') {
+              this.livePeer(d.payload);
+            } else if (d.k === 'r') {
+              this.liveRose(d.payload);
+            }
+          };
+          beat();
+          this._beat = setInterval(beat, 1000);
+          this.net = {
+            send: (ev, payload) => bc.postMessage({ k: ev, payload }),
+            close: () => {
+              bc.postMessage({ k: 'bye', id: this.me.id });
+              clearInterval(this._beat);
+              bc.close();
+            }
+          };
+        }
+      }
+
+      liveClose() {
+        if (this.net) { this.net.close(); this.net = null; }
+        for (const id of [...this.peers.keys()]) this.peerDrop(id);
+        this.others = 0;
+        this.liveCount(1);
+      }
+
+      liveSend(ev, payload) {
+        if (this.net && this.others > 0) {
+          try { this.net.send(ev, payload); } catch (e) {}
+        }
+      }
+
+      livePresence(meta) {
+        this.roster = meta || {};
+        const n = new Set([...Object.keys(this.roster), this.me.id]).size;
+        this.others = n - 1;
+        for (const id of [...this.peers.keys()]) if (!this.roster[id]) this.peerDrop(id);
+        for (const [id, p] of this.peers) {
+          const r = this.roster[id];
+          if (r && (r.n !== p.n || r.c !== p.c)) this.peerStyle(p, r);
+        }
+        this.liveCount(n);
+      }
+
+      liveCount(n) {
+        if (this.liveCountEl) {
+          this.liveCountEl.textContent = n > 1 ? n + ' gardeners here' : '';
+        }
+      }
+
+      livePeer(d) {
+        if (!d || typeof d.i !== 'string' || d.i === this.me.id) return;
+        let p = this.peers.get(d.i);
+        if (!p) {
+          if (this.peers.size >= 40) return;
+          p = this.peerMake(d.i);
+        }
+        p.t = performance.now();
+        p.h = !!d.h;
+        if (!d.h && typeof d.x === 'number' && typeof d.y === 'number') {
+          p.tx = Math.min(1.02, Math.max(-0.02, d.x));
+          p.ty = Math.min(1.02, Math.max(-0.02, d.y));
+          if (p.x == null) { p.x = p.tx * this.W; p.y = p.ty * this.H; }
+        }
+      }
+
+      peerMake(id) {
+        const el = document.createElement('div');
+        el.className = 'tg-peer';
+        el.style.opacity = '0';
+        el.innerHTML = '<svg width="18" height="20" viewBox="0 0 18 20"><path d="M1 1L1 16L5.5 12L8.5 19L11.5 17.6L8.6 11H15Z" stroke="#000" stroke-width="1.2" stroke-linejoin="round"/></svg><span></span>';
+        if (this.peersEl) this.peersEl.appendChild(el);
+        const p = { id, el, x: null, y: null, tx: 0, ty: 0, t: 0, h: true, op: 0 };
+        this.peers.set(id, p);
+        this.peerStyle(p, this.roster[id] || {});
+        return p;
+      }
+
+      peerStyle(p, r) {
+        p.n = r.n || 'visitor';
+        p.c = /^#[0-9A-Fa-f]{6}$/.test(r.c || '') ? r.c : '#FFFFFF';
+        p.el.querySelector('path').setAttribute('fill', p.c);
+        const s = p.el.querySelector('span');
+        s.textContent = p.n;
+        s.style.background = p.c;
+      }
+
+      peerDrop(id) {
+        const p = this.peers.get(id);
+        if (p) {
+          p.el.remove();
+          this.peers.delete(id);
+        }
+      }
+
+      liveStep(now, dt) {
+        const N = this.others + 1, iv = Math.min(10000, Math.max(125, (1000 * N * N) / 40));
+        if (this.net && this.others > 0 && this.mx != null && !document.hidden && now - this.lastSend >= iv) {
+          const x = Math.round((this.mx / this.W) * 1000) / 1000, y = Math.round((this.my / this.H) * 1000) / 1000;
+          if (x !== this.sentX || y !== this.sentY) {
+            this.lastSend = now;
+            this.sentX = x;
+            this.sentY = y;
+            this.liveSend('p', { i: this.me.id, x, y });
+          }
+        }
+        if (!this.peers.size) return;
+        const tau = Math.min(900, Math.max(70, 0.55 * iv)), k = 1 - Math.exp(-dt / tau);
+        let shown = 0;
+        for (const p of [...this.peers.values()].sort((a, b) => b.t - a.t)) {
+          const idle = now - p.t, vis = !p.h && p.x != null && idle < 45000 && shown < 24;
+          if (vis) {
+            shown++;
+            p.x += (p.tx * this.W - p.x) * k;
+            p.y += (p.ty * this.H - p.y) * k;
+            p.el.style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px)`;
+          }
+          const op = !vis ? 0 : idle < 8000 ? 1 : 0.35;
+          if (p.op !== op) {
+            p.op = op;
+            p.el.style.opacity = String(op);
+          }
+        }
+      }
+
+      near(x, y) {
+        let best = this.mx != null ? [this.mx, this.my] : null;
+        let bd = best ? Math.hypot(best[0] - x, best[1] - y) : 1e9;
+        if (this.peers && this.peers.size) {
+          const now = performance.now();
+          for (const p of this.peers.values()) {
+            if (p.h || p.x == null || now - p.t > 8000) continue;
+            const d = Math.hypot(p.x - x, p.y - y);
+            if (d < bd) { bd = d; best = [p.x, p.y]; }
+          }
+        }
+        return best;
+      }
+
+      liveRose(g) {
+        if (!g || typeof g.x !== 'number' || typeof g.y !== 'number') return;
+        const r = this.rng((g.s | 0) || 1);
+        this.gifts.push({
+          x: Math.min(1, Math.max(0, g.x)),
+          y: Math.min(1, Math.max(0, g.y)),
+          t0: performance.now(),
+          rot: (r() - 0.5) * 0.8,
+          flowerType: this.props.flowerVariety === 'mixed' ? (r() < 0.35 ? 'rose' : r() < 0.6 ? 'sakura' : r() < 0.85 ? 'daisy' : 'orchid') : this.props.flowerVariety,
+          e: { ph1: r() * 6.283, ph2: r() * 6.283, turns: 1.4 + r() * 0.5 }
+        });
+        if (this.gifts.length > 14) this.gifts.shift();
+      }
+
+      // ---------- Phone / Keyboard Sync ----------
+      syncVV() {
+        const vv = this.vv;
+        if (!vv) return;
+        const w = Math.round(vv.width);
+        if (this.vvW !== w) { this.vvW = w; this.vvMax = 0; }
+        this.vvMax = Math.max(this.vvMax, vv.height);
+        const kb = this.vvMax - vv.height > 120, de = document.documentElement;
+        de.style.setProperty('--tg-top', vv.offsetTop + 'px');
+        de.style.setProperty('--tg-h', vv.height + 'px');
+        if (kb) de.setAttribute('data-kb', ''); else de.removeAttribute('data-kb');
+        if (!kb && this.kbWas && document.activeElement === this.inp) this.inp.blur();
+        this.kbWas = kb;
+        this.resize();
+      }
+
+      liveText() {
+        return (this.letters || []).filter(l => !l.dead).map(l => l.ch).join('').trim();
+      }
+
+      wither(now) {
+        const A = this.letters.filter(l => !l.dead), last = A[A.length - 1];
+        if (!last) return;
+        last.dead = now;
+        const pv = A[A.length - 2];
+        if (pv && pv.ch !== ' ') { pv.cut = null; pv.endEls = null; pv.tb = now; }
+        this.audio.playWither();
+        this.layout();
+      }
+
+      inputDiff(el) {
+        const S = this.SENT;
+        if (this.state.mode !== 'type' || this._kd) {
+          this.iv = this.composing ? el.value : S;
+          if (!this.composing) el.value = S;
+          return;
+        }
+        const old = this.iv == null ? S : this.iv, cur = el.value;
+        let p = 0;
+        while (p < old.length && p < cur.length && old[p] === cur[p]) p++;
+        let dels = old.length - p;
+        if (p === 0 && old[0] === S && old.length > 1) dels -= 1;
+        const now = performance.now();
+        this.lastKey = now;
+        for (let i = 0; i < dels; i++) this.wither(now);
+        for (const ch of cur.slice(p)) {
+          if (ch === S) continue;
+          if (ch.charCodeAt(0) === 10) {
+            this.letters = [];
+            this.layout();
+          } else {
+            this.add(ch, now);
+          }
+        }
+        if (this.composing) this.iv = cur;
+        else { el.value = S; this.iv = S; }
+      }
+
+      key(e) {
+        if (this.state.mode !== 'type') return;
+        if (e.metaKey || e.ctrlKey || e.altKey) {
+          if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
+            e.preventDefault();
+            e.shiftKey ? this.saveSVG() : this.savePNG();
+          }
+          return;
+        }
+        if (e.target && e.target.tagName === 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) return;
+        const now = performance.now();
+        const A = this.letters.filter(l => !l.dead), last = A[A.length - 1];
+        if (e.key === 'Backspace') {
+          e.preventDefault();
+          this.mark();
+          if (!last) return;
+          last.dead = now;
+          const pv = A[A.length - 2];
+          if (pv && pv.ch !== ' ') { pv.cut = null; pv.endEls = null; pv.tb = now; }
+          this.audio.playWither();
+          this.layout();
+          return;
+        }
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.mark();
+          this.letters = [];
+          this.audio.playWither();
+          this.layout();
+          return;
+        }
+        if (e.key.length !== 1) return;
+        e.preventDefault();
+        this.mark();
+        this.add(e.key, now);
+      }
+
+      mark() {
+        this.lastKey = performance.now();
+        this._kd = true;
+        setTimeout(() => { this._kd = false; }, 0);
+      }
+
+      add(ch, now) {
+        const A = this.letters.filter(l => !l.dead), last = A[A.length - 1];
+        if (ch === ' ') {
+          if (last && last.ch !== ' ') {
+            last.cut = now;
+            this.genEnd(last, now - last.birth);
+          }
+          this.letters.push({ ch: ' ', id: this.uid++, birth: now, els: [] });
+          this.audio.playCut();
+          this.layout();
+          return;
+        }
+        const same = last && last.ch !== ' ';
+        const l = {
+          ch,
+          id: this.uid++,
+          birth: now,
+          tb: now,
+          ws: same ? last.ws : Math.floor(this.rand() * 1e9),
+          wi: same ? last.wi + 1 : 0,
+          prev: same ? last : null
+        };
+        this.gen(l);
+        this.letters.push(l);
+        this.audio.playBloom(l.id);
+        this.layout();
+      }
+
+      // ---------- Plant & Growth Generation ----------
+      wordParams(ws) {
+        const r = this.rng(ws * 7 + 13), dens = this.props.density ?? 1;
+        return {
+          roseP: 0.3 + r() * 0.3,
+          leafy: (0.6 + r() * 0.8) * dens,
+          dens,
+          lean: (r() - 0.5) * 0.6,
+          big: 0.85 + r() * 0.45,
+          curvy: 0.8 + r() * 0.6,
+          bridgeP: Math.min(0.95, (0.45 + r() * 0.35) * dens),
+          w: 0.5
+        };
+      }
+
+      getFlowerType(r) {
+        const v = this.props.flowerVariety || 'rose';
+        if (v === 'mixed') {
+          return r() < 0.3 ? 'rose' : r() < 0.55 ? 'sakura' : r() < 0.8 ? 'daisy' : 'orchid';
+        }
+        return v;
+      }
+
+      grow(r, E, nid, p, o) {
+        const tip = o.tip || (r() < p.roseP ? 'flower' : r() < 0.45 ? 'fan' : r() < 0.6 ? 'leaf' : 'curl');
+        let P = o.pts || this.vine(o.base, o.dir, o.len, (0.35 + r() * 0.45) * p.curvy, 1 + r() * 1.6, r() * 6.28, (r() - 0.5) * 1.2, 40);
+        if (tip === 'curl') P = this.curl(P, r() < 0.5 ? -1 : 1, 0.05 + r() * 0.05);
+        const segs = this.weave(r, o.layer0 != null ? o.layer0 : (r() < 0.5 ? 0 : 1));
+        const dur = Math.max(320, (o.len || 0.8) * 620);
+        const thorns = [];
+        const nt = Math.floor(r() * 2.5);
+        for (let i = 0; i < nt; i++) thorns.push({ u: 0.15 + r() * 0.65, s: r() < 0.5 ? -1 : 1 });
+        E.push({ t: 'stem', id: nid(), pts: P, segs, d0: o.d0, dur, w: o.depth ? 0.82 : 1, thorns });
+
+        const nl = Math.floor(r() * 2.8 * p.leafy);
+        let sd = r() < 0.5 ? -1 : 1;
+        for (let i = 0; i < nl; i++) {
+          const u = 0.25 + r() * 0.6, [q, a] = this.at(P, u);
+          sd = -sd;
+          E.push({
+            t: 'leaf',
+            id: nid(),
+            x: q[0],
+            y: q[1],
+            a: a + sd * (0.55 + r() * 0.5),
+            L: (0.14 + r() * 0.2) * (o.depth ? 0.8 : 1),
+            bend: (r() - 0.5) * 1.2,
+            layer: this.layerAt(segs, u),
+            d0: o.d0 + dur * u
+          });
+        }
+
+        const [tp, ta] = this.at(P, 1), td = o.d0 + dur * 0.8, tl = this.layerAt(segs, 1);
+        if (tip === 'flower' || tip === 'rose') {
+          const R = (0.13 + r() * 0.15) * p.big * (o.depth ? 0.75 : 1);
+          const over = tp[1] > -0.78 && tp[1] < 0.05 && Math.abs(tp[0]) < p.w * 0.5;
+          const layer = over ? (r() < 0.22 ? 1 : 0) : (r() < 0.6 ? 1 : tl);
+          const fType = this.getFlowerType(r);
+          E.push({ t: 'flower', flowerType: fType, id: nid(), x: tp[0], y: tp[1], R, rot: (r() - 0.5) * 1.0, ph1: r() * 6.28, ph2: r() * 6.28, turns: 1.8 + r() * 1, layer, d0: td });
+          if (r() < 0.2) {
+            const oo = ta + (r() < 0.5 ? 1 : -1) * 1.3;
+            E.push({ t: 'flower', flowerType: fType, id: nid(), x: tp[0] + Math.cos(oo) * R * 1.4, y: tp[1] + Math.sin(oo) * R * 1.4, R: R * (0.6 + r() * 0.3), rot: (r() - 0.5) * 1.2, ph1: r() * 6.28, ph2: r() * 6.28, turns: 1.8 + r(), layer, d0: td + 120 });
+          }
+        } else if (tip === 'fan') {
+          const spread = 0.6 + r() * 0.3;
+          for (let j = 0; j < 2; j++) {
+            E.push({ t: 'leaf', id: nid(), x: tp[0], y: tp[1], a: ta + (j - 0.5) * spread, L: 0.2 + r() * 0.2, bend: (j - 0.5) * 0.8, layer: tl, d0: td + j * 60 });
+          }
+        } else if (tip === 'leaf') {
+          E.push({ t: 'leaf', id: nid(), x: tp[0], y: tp[1], a: ta + (r() - 0.5) * 0.3, L: 0.16 + r() * 0.16, bend: (r() - 0.5), layer: tl, d0: td });
+        }
+
+        if (!o.depth && r() < 0.3) {
+          const u = 0.35 + r() * 0.35, [q, a] = this.at(P, u);
+          this.grow(r, E, nid, p, {
+            base: q,
+            dir: a + (r() < 0.5 ? -1 : 1) * (0.7 + r() * 0.4),
+            len: (o.len || 0.8) * (0.35 + r() * 0.2),
+            d0: o.d0 + dur * u,
+            depth: 1,
+            layer0: this.layerAt(segs, u)
+          });
+        }
+        return P;
+      }
+
+      gen(l) {
+        const r = this.rng((l.ws ^ Math.imul(l.wi + 1, 2654435761)) + Math.floor(this.rand() * 1e6));
+        const p = this.wordParams(l.ws), E = [];
+        let k0 = 0;
+        const nid = () => l.id * 100 + (k0++);
+        const w = this.mw(l.ch), inX = () => (r() - 0.5) * w * 0.7;
+        p.w = w;
+
+        const nUp = 1 + (r() < 0.45 * p.dens ? 1 : 0);
+        for (let i = 0; i < nUp; i++) {
+          this.grow(r, E, nid, p, {
+            base: [inX(), -r() * 0.3],
+            dir: -Math.PI / 2 + p.lean * 0.5 + (r() - 0.5) * 0.7,
+            len: 0.6 + r() * 0.5,
+            d0: 40 + i * 130,
+            tip: l.wi === 0 && i === 0 ? 'flower' : null
+          });
+        }
+
+        if (r() < 0.4 * p.dens) {
+          this.grow(r, E, nid, p, {
+            base: [inX(), -0.1 - r() * 0.35],
+            dir: Math.PI / 2 + (r() - 0.5) * 0.8,
+            len: 0.35 + r() * 0.35,
+            d0: 160
+          });
+        }
+
+        if (l.prev && r() < p.bridgeP) {
+          const px = -(this.mw(l.prev.ch) + w) / 2;
+          const a = [inX(), -0.05 - r() * 0.55], b = [px + (r() - 0.5) * 0.25, -0.05 - r() * 0.55];
+          const bulge = (r() < 0.55 ? -1 : 1) * (0.4 + r() * 0.4), dx = b[0] - a[0];
+          let P = this.bez(a, [a[0] + dx * 0.15, a[1] + bulge], [b[0] - dx * 0.15, b[1] + bulge * 0.9], b, 40);
+          if (r() < 0.45) P = P.slice(0, Math.floor(P.length * (0.7 + r() * 0.2)));
+          this.grow(r, E, nid, p, {
+            pts: P,
+            len: Math.abs(dx) + Math.abs(bulge),
+            d0: 90,
+            tip: r() < 0.5 ? 'curl' : r() < 0.5 ? 'leaf' : 'flower'
+          });
+        }
+
+        if (l.wi === 0) {
+          this.grow(r, E, nid, p, {
+            base: [-w * 0.3, -0.15 - r() * 0.4],
+            dir: Math.PI + (r() - 0.5) * 1.2,
+            len: 0.45 + r() * 0.3,
+            d0: 120,
+            tip: 'curl'
+          });
+        }
+
+        l.els = E;
+        l.endEls = null;
+
+        const T = [], tr = this.rng(l.id * 977 + Math.floor(this.rand() * 1e6));
+        this.grow(tr, T, () => l.id * 100 + 90 + T.length, p, {
+          base: [w * 0.25, -0.1 - tr() * 0.45],
+          dir: (tr() - 0.5) * 1.4,
+          len: 0.45 + tr() * 0.25,
+          d0: 0,
+          tip: 'curl',
+          depth: 1
+        });
+        l.tend = T.filter(e => e.t === 'stem').slice(0, 1);
+      }
+
+      genEnd(l, rel) {
+        const r = this.rng(l.ws + l.wi * 31 + Math.floor(this.rand() * 1e6)), p = this.wordParams(l.ws), E = [];
+        let k0 = 50;
+        const nid = () => l.id * 100 + (k0++);
+        const w = this.mw(l.ch), n = 1 + Math.floor(r() * 2.5);
+        p.w = w;
+        for (let i = 0; i < n; i++) {
+          const dir = -Math.PI / 2 + 0.6 + (i - (n - 1) / 2) * 0.9 + (r() - 0.5) * 0.4;
+          this.grow(r, E, nid, p, {
+            base: [(r() - 0.2) * w * 0.6, -r() * 0.5],
+            dir,
+            len: 0.4 + r() * 0.45,
+            d0: rel + 40 + i * 90,
+            depth: 1,
+            tip: i === 0 || r() < 0.5 ? 'flower' : 'fan'
+          });
+        }
+        l.endEls = E;
+      }
+
+      strokeRange(B, P, a, b, col, w) {
+        const n = P.length - 1, ia = a * n, ib = b * n;
+        const lerp = t => {
+          const i = Math.min(n - 1, Math.floor(t)), f = t - i;
+          return [P[i][0] + (P[i+1][0] - P[i][0]) * f, P[i][1] + (P[i+1][1] - P[i][1]) * f];
+        };
+        const pts = [lerp(ia)];
+        for (let i = Math.floor(ia) + 1; i < ib; i++) pts.push(P[i]);
+        pts.push(lerp(ib));
+        if (pts.length >= 2) B.stroke(pts, col, w);
+      }
+
+      thorn(B, P, u, s, S) {
+        const [p, a] = this.at(P, u), d = a + s * 2.3, L = S * 0.045;
+        B.stroke([p, [p[0] + Math.cos(d) * L, p[1] + Math.sin(d) * L]], this.cc.blue, S * 0.022);
+      }
+
+      leaf(B, bx, by, a, L, bend) {
+        if (L < 0.5) return;
+        const ca = Math.cos(a), sa = Math.sin(a), px = -sa, py = ca;
+        const ax = u => {
+          const b = Math.sin(Math.PI * u) * bend * 0.15 * L;
+          return [bx + ca * u * L + px * b, by + sa * u * L + py * b];
+        };
+        const hw = u => L * 0.18 * Math.sin(Math.PI * Math.pow(u, 0.8));
+        const N = 12, s1 = [], s2 = [];
+        for (let i = 0; i <= N; i++) {
+          const u = i / N, c = ax(u), w = hw(u);
+          s1.push([c[0] + px * w, c[1] + py * w]);
+          s2.push([c[0] - px * w, c[1] - py * w]);
+        }
+        const tip = ax(1), base = ax(0);
+        B.fill([base, ...s1.slice(1, N), tip, tip, ...s2.slice(1, N).reverse(), base], this.cc.blue);
+        if (L > 6) {
+          const v = [];
+          for (let i = 0; i <= 8; i++) v.push(ax(0.08 + 0.72 * i / 8));
+          B.stroke(v, this.cc.vein, Math.max(0.8, L * 0.03));
+        }
+      }
+
+      // ---------- Specialized Flower Renderers ----------
+      drawFlower(B, cx, cy, R, rot, e, a, tl) {
+        const variety = e.flowerType || this.props.flowerVariety || 'rose';
+        if (variety === 'sakura') {
+          this.sakura(B, cx, cy, R, rot, e, a, tl);
+        } else if (variety === 'daisy') {
+          this.daisy(B, cx, cy, R, rot, e, a, tl);
+        } else if (variety === 'orchid') {
+          this.orchid(B, cx, cy, R, rot, e, a, tl);
+        } else {
+          this.rose(B, cx, cy, R, rot, e, a, tl);
+        }
+      }
+
+      rose(B, cx, cy, R, rot, e, a, tl) {
+        const cr = Math.cos(rot), sr = Math.sin(rot);
+        const tm = tl ? Math.hypot(tl[0], tl[1]) : 0, ux = tm ? tl[0] / tm : 0, uy = tm ? tl[1] / tm : 0, sq = -0.28 * tm;
+        const T = (x, y, z = 0) => {
+          let dx = x * cr - y * sr, dy = x * sr + y * cr;
+          if (tm) {
+            const k = (dx * ux + dy * uy) * sq;
+            dx += k * ux + tl[0] * R * z;
+            dy += k * uy + tl[1] * R * z;
+          }
+          return [cx + dx, cy + dy];
+        };
+
+        const P = [
+          [0, -0.36, 0.56, 0.54, 0, 0, 0],
+          [-0.5, -0.06, 0.6, 0.6, -0.35, 0, 0],
+          [0.52, -0.06, 0.6, 0.6, 0.35, 0, 0],
+          [-0.42, 0.3, 0.62, 0.48, 0.2, 0.12, 1],
+          [0.47, 0.3, 0.62, 0.48, -0.2, 0.12, 1],
+          [0.05, 0.42, 0.56, 0.38, 0, 0.14, 0]
+        ];
+        const ax0 = 0, ay0 = 0.5, lw = Math.max(0.8, R * 0.045), st = 85;
+
+        P.forEach((q, i) => {
+          const s = this.spr((a - i * st) / 1000, 8, 14);
+          if (s <= 0.001) return;
+          const open = (1 - Math.min(1, s)) * (q[0] < 0 ? 0.5 : -0.5), ang = q[4] + open, ca = Math.cos(ang), sa = Math.sin(ang);
+          const pt = (th) => {
+            const rr = 1 + 0.08 * Math.sin(3 * th + e.ph1 + i) + 0.04 * Math.sin(5 * th + e.ph2);
+            const lx = Math.cos(th) * q[2] * rr, ly = Math.sin(th) * q[3] * rr;
+            const px = q[0] + lx * ca - ly * sa, py = q[1] + lx * sa + ly * ca;
+            return T((ax0 + (px - ax0) * s) * R, (ay0 + (py - ay0) * s) * R, q[5]);
+          };
+          const pts = [];
+          for (let k = 0; k < 26; k++) pts.push(pt(k / 26 * Math.PI * 2));
+          B.fill(pts, this.cc.red);
+          if (q[6] && R >= 12 && s > 0.4) {
+            const arc = [];
+            for (let k = 0; k <= 14; k++) arc.push(pt(Math.PI * (1.18 + 0.64 * k / 14)));
+            this.strokeRange(B, arc, 0, Math.min(1, (s - 0.4) / 0.5), this.cc.line, lw * 0.8);
+          }
+        });
+
+        const fr = this.eo((a - P.length * st - 80) / 520);
+        if (fr > 0 && R > 3) {
+          const sp = [], scl = [];
+          const turns = R < 20 ? Math.min(e.turns, 1.3) : R < 32 ? e.turns * 0.8 : e.turns;
+          for (let i = 0; i <= 70; i++) {
+            const u = i / 70, th = e.ph1 + u * turns * Math.PI * 2, rr = R * (0.08 + 0.57 * u);
+            sp.push(T(Math.cos(th) * rr * 1.05, Math.sin(th) * rr * 0.72 - 0.12 * R, 0.34 - 0.24 * u));
+          }
+          this.strokeRange(B, sp, 0, fr, this.cc.line, lw);
+          if (R >= 14) {
+            for (let i = 0; i <= 36; i++) {
+              const u = i / 36;
+              scl.push(T((-0.72 + 1.5 * u) * R, 0.36 * R + 0.16 * R * Math.abs(Math.sin(u * Math.PI * 3)), 0.18));
+            }
+            this.strokeRange(B, scl, 0, fr, this.cc.line, lw);
+          }
+        }
+      }
+
+      sakura(B, cx, cy, R, rot, e, a, tl) {
+        const cr = Math.cos(rot), sr = Math.sin(rot);
+        const T = (x, y) => [cx + x * cr - y * sr, cy + x * sr + y * cr];
+        const numPetals = 5;
+        const s = this.spr((a - 50) / 1000, 7, 13);
+        if (s <= 0.001) return;
+
+        for (let i = 0; i < numPetals; i++) {
+          const baseAng = (i * 2 * Math.PI) / numPetals;
+          const ca = Math.cos(baseAng), sa = Math.sin(baseAng);
+          const pR = R * s * (0.9 + 0.1 * Math.sin(e.ph1 + i));
+          // Petal with gentle heart notch at apex
+          const localPts = [
+            [0, 0],
+            [-0.3 * pR, 0.45 * pR],
+            [-0.34 * pR, 0.85 * pR],
+            [0, 0.76 * pR], // notch center
+            [0.34 * pR, 0.85 * pR],
+            [0.3 * pR, 0.45 * pR]
+          ];
+          const pts = localPts.map(pt => T(pt[0] * ca - pt[1] * sa, pt[0] * sa + pt[1] * ca));
+          B.fill(pts, this.cc.red);
+          if (s > 0.4) {
+            const arc = [pts[1], pts[2], pts[3], pts[4], pts[5]];
+            B.stroke(arc, this.cc.line, Math.max(0.7, R * 0.035));
+          }
+        }
+
+        // Center stamen cluster
+        if (s > 0.5) {
+          const cR = R * 0.18;
+          const pts = [];
+          for (let k = 0; k < 12; k++) {
+            const th = k * Math.PI / 6;
+            pts.push(T(Math.cos(th) * cR, Math.sin(th) * cR));
+          }
+          B.fill(pts, this.cc.line);
+          for (let k = 0; k < 5; k++) {
+            const th = k * 2 * Math.PI / 5 + e.ph2;
+            const px = Math.cos(th) * R * 0.35, py = Math.sin(th) * R * 0.35;
+            B.stroke([T(0, 0), T(px, py)], this.cc.line, Math.max(0.6, R * 0.03));
+            B.fill([T(px - 1.5, py - 1.5), T(px + 1.5, py - 1.5), T(px + 1.5, py + 1.5), T(px - 1.5, py + 1.5)], this.cc.text);
+          }
+        }
+      }
+
+      daisy(B, cx, cy, R, rot, e, a, tl) {
+        const cr = Math.cos(rot), sr = Math.sin(rot);
+        const T = (x, y) => [cx + x * cr - y * sr, cy + x * sr + y * cr];
+        const numPetals = 12;
+        const s = this.spr((a - 40) / 1000, 8, 12);
+        if (s <= 0.001) return;
+
+        // Radiating ray petals
+        for (let i = 0; i < numPetals; i++) {
+          const baseAng = (i * 2 * Math.PI) / numPetals;
+          const ca = Math.cos(baseAng), sa = Math.sin(baseAng);
+          const pL = R * s * 1.05;
+          const pW = R * s * 0.18;
+          const localPts = [
+            [0, 0],
+            [-pW, pL * 0.5],
+            [0, pL],
+            [pW, pL * 0.5]
+          ];
+          const pts = localPts.map(pt => T(pt[0] * ca - pt[1] * sa, pt[0] * sa + pt[1] * ca));
+          B.fill(pts, this.cc.red);
+        }
+
+        // Center disk
+        const cR = R * s * 0.38;
+        const center = [];
+        for (let k = 0; k < 18; k++) {
+          const th = k * Math.PI / 9;
+          center.push(T(Math.cos(th) * cR, Math.sin(th) * cR));
+        }
+        B.fill(center, this.cc.line);
+        if (s > 0.6) {
+          const innerCenter = [];
+          for (let k = 0; k < 14; k++) {
+            const th = k * Math.PI / 7;
+            innerCenter.push(T(Math.cos(th) * cR * 0.5, Math.sin(th) * cR * 0.5));
+          }
+          B.fill(innerCenter, this.cc.vein);
+        }
+      }
+
+      orchid(B, cx, cy, R, rot, e, a, tl) {
+        const cr = Math.cos(rot), sr = Math.sin(rot);
+        const T = (x, y) => [cx + x * cr - y * sr, cy + x * sr + y * cr];
+        const s = this.spr((a - 50) / 1000, 7, 14);
+        if (s <= 0.001) return;
+
+        // 3 slender Sepals
+        const sepals = [-Math.PI / 2, Math.PI / 6, (5 * Math.PI) / 6];
+        sepals.forEach(ang => {
+          const ca = Math.cos(ang), sa = Math.sin(ang);
+          const pL = R * s * 0.95, pW = R * s * 0.22;
+          const pts = [[0, 0], [-pW, pL * 0.6], [0, pL], [pW, pL * 0.6]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca));
+          B.fill(pts, this.cc.line);
+        });
+
+        // 2 broad upper petals
+        const petals = [-Math.PI / 5, (-4 * Math.PI) / 5];
+        petals.forEach(ang => {
+          const ca = Math.cos(ang), sa = Math.sin(ang);
+          const pL = R * s * 0.82, pW = R * s * 0.42;
+          const pts = [[0, 0], [-pW, pL * 0.5], [0, pL], [pW, pL * 0.5]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca));
+          B.fill(pts, this.cc.red);
+        });
+
+        // Prominent lower ruffled labellum (lip)
+        const lipW = R * s * 0.52, lipH = R * s * 0.75;
+        const lipPts = [
+          [0, 0],
+          [-lipW * 0.5, lipH * 0.3],
+          [-lipW, lipH * 0.7],
+          [-lipW * 0.4, lipH],
+          [0, lipH * 0.85],
+          [lipW * 0.4, lipH],
+          [lipW, lipH * 0.7],
+          [lipW * 0.5, lipH * 0.3]
+        ].map(p => T(p[0], p[1]));
+        B.fill(lipPts, this.cc.red);
+        B.stroke(lipPts, this.cc.line, Math.max(0.8, R * 0.04));
+      }
+
+      faceTurn(e, x, y) {
+        let wx = 0, wy = 0;
+        const A = this.near(x, y);
+        if (A) {
+          const dx = A[0] - x, dy = A[1] - y, d = Math.hypot(dx, dy), reach = 300 * (this.props.windScale || 1);
+          if (d < reach && d > 0.001) {
+            const w = 1 - d / reach, s = w * w * (3 - 2 * w) * Math.min(1, d / 40);
+            wx = dx / d * s;
+            wy = dy / d * s;
+          }
+        }
+        const c = this.fa[e.id] || [0, 0];
+        c[0] += (wx - c[0]) * 0.09;
+        c[1] += (wy - c[1]) * 0.09;
+        this.fa[e.id] = c;
+        return c;
+      }
+
+      // ---------- Butterfly Visitors ----------
+      spawnFly(cx, cy) {
+        if (this.flies.length >= 6) {
+          const o = this.flies.find(f => f.st !== 'leave');
+          if (o) this.flyOff(o);
+        }
+        const taken = new Set(this.flies.filter(f => f.st !== 'leave').map(f => f.pid));
+        let best = null, bd = 1e9;
+        for (const p of this.perch) {
+          if (taken.has(p.id)) continue;
+          const d = Math.hypot(p.x - cx, p.y - cy);
+          if (d < bd) { bd = d; best = p; }
+        }
+        const left = cx < this.W / 2, sz = Math.max(9, this.Sd * 0.09);
+        this.flies.push({
+          x: left ? -40 : this.W + 40,
+          y: cy + (Math.random() - 0.5) * this.H * 0.4,
+          vx: 0, vy: 0,
+          st: best ? 'fly' : 'wander',
+          pid: best ? best.id : null,
+          hx: cx, hy: cy,
+          t0: performance.now(),
+          ph: Math.random() * 6,
+          sz,
+          seed: Math.random() * 100,
+          ang: 0
+        });
+      }
+
+      flyOff(f) {
+        f.st = 'leave';
+        f.pid = null;
+        f.ex = f.x < this.W / 2 ? -80 : this.W + 80;
+        f.ey = f.y - this.H * 0.3;
+      }
+
+      drawFlies(B, now, C) {
+        const dt = Math.min(48, now - (this._fl || now));
+        this._fl = now;
+        const byId = {};
+        for (const p of this.perch) byId[p.id] = p;
+        this.flies = this.flies.filter(f => {
+          const t = (now - f.t0) / 1000;
+          let tx, ty;
+          if (f.st === 'sit' || f.st === 'fly') {
+            const p = byId[f.pid];
+            if (!p) {
+              this.flyOff(f);
+            } else {
+              tx = p.x + p.R * 0.05;
+              ty = p.y - p.R * 0.55;
+            }
+          }
+          if (f.st === 'wander') {
+            tx = f.hx + Math.sin(t * 1.3 + f.seed) * 70;
+            ty = f.hy + Math.sin(t * 2.1 + f.seed) * 40;
+            if (t > 3.5) this.flyOff(f);
+          }
+          if (f.st === 'leave') {
+            tx = f.ex;
+            ty = f.ey;
+          }
+          if (f.st === 'sit') {
+            f.x += (tx - f.x) * 0.35;
+            f.y += (ty - f.y) * 0.35;
+            f.ang *= 0.85;
+            f.ph += dt * 0.004;
+            const burst = Math.sin(now / 1000 * 0.9 + f.seed) > 0.75;
+            f.open = burst ? 0.2 + 0.8 * Math.abs(Math.cos(now / 1000 * 9 + f.seed)) : 0.25 + 0.15 * Math.sin(f.ph);
+          } else {
+            const dx = tx - f.x, dy = ty - f.y, d = Math.hypot(dx, dy) || 1, sp = f.st === 'leave' ? 0.42 : Math.min(0.34, 0.06 + d * 0.0016);
+            const flut = Math.sin(t * 7 + f.seed) * 0.12, wob = Math.cos(t * 4.3 + f.seed) * 0.1;
+            const ax = (dx / d * sp + wob) - f.vx, ay = (dy / d * sp + flut) - f.vy;
+            f.vx += ax * 0.06 * dt / 16;
+            f.vy += ay * 0.06 * dt / 16;
+            f.x += f.vx * dt;
+            f.y += f.vy * dt + Math.sin(t * 13 + f.seed) * 0.6;
+            f.ang += (Math.max(-0.5, Math.min(0.5, f.vx * 1.4)) - f.ang) * 0.1;
+            f.open = Math.abs(Math.cos(t * 17 + f.seed));
+            if (f.st === 'fly' && d < 5) { f.st = 'sit'; f.ph = 0; }
+            if (f.st === 'leave' && (f.x < -60 || f.x > this.W + 60 || f.y < -60)) return false;
+          }
+          this.butterfly(B, f.x, f.y, f.sz, f.ang, f.open, C);
+          return true;
+        });
+      }
+
+      butterfly(B, x, y, s, ang, o, C) {
+        const ca = Math.cos(ang), sa = Math.sin(ang), T = (px, py) => [x + (px * ca - py * sa) * s, y + (px * sa + py * ca) * s];
+        const wing = (cx, cy, rx, ry, a, side) => {
+          const pts = [], c = Math.cos(a), sn = Math.sin(a);
+          for (let k = 0; k < 22; k++) {
+            const th = k / 22 * Math.PI * 2, r = 1 + 0.08 * Math.sin(th * 3), lx = Math.cos(th) * rx * r, ly = Math.sin(th) * ry * r;
+            pts.push(T(side * (cx + lx * c - ly * sn) * (0.12 + 0.88 * o), cy + lx * sn + ly * c));
+          }
+          return pts;
+        };
+        for (const sd of [-1, 1]) {
+          B.fill(wing(0.46, 0.28, 0.36, 0.3, 0.5 * sd * sd, sd), C.text);
+          B.fill(wing(0.55, -0.32, 0.55, 0.36, -0.55, sd), C.text);
+          if (o > 0.35) B.fill(wing(0.66, -0.4, 0.13, 0.11, 0, sd), C.red);
+        }
+        const body = [];
+        for (let k = 0; k < 18; k++) {
+          const th = k / 18 * Math.PI * 2;
+          body.push(T(Math.cos(th) * 0.08, Math.sin(th) * 0.48));
+        }
+        B.fill(body, C.blue);
+        const lw = Math.max(0.8, s * 0.05);
+        B.stroke([T(0, -0.42), T(-0.14, -0.72), T(-0.24, -0.86)], C.blue, lw);
+        B.stroke([T(0, -0.42), T(0.14, -0.72), T(0.24, -0.86)], C.blue, lw);
+      }
+
+      // ---------- Render Loop ----------
+      frame() {
+        const now = performance.now(), dt = Math.min(64, now - (this.lt || now));
+        this.lt = now;
+
+        if (this.state.mode === 'poster') {
+          const c = this.pcv;
+          if (c && !this.state.busy) this.posterDraw(c.getContext('2d'), now - (this.pt0 || 0));
+          return;
+        }
+
+        const k = 1 - Math.exp(-dt / 80);
+        this.Sd += (this.St - this.Sd) * k;
+        this.cx += (this.ctx_ - this.cx) * k;
+        this.cy += (this.cty - this.cy) * k;
+        for (const l of this.letters) {
+          if (!l.dead && l.tx != null) {
+            l.x += (l.tx - l.x) * k;
+            l.y += (l.ty - l.y) * k;
+          }
+        }
+        this.letters = this.letters.filter(l => !(l.dead && now - l.dead > 300));
+        this.liveStep(now, dt);
+        this.paint(now, true);
+      }
+
+      pal() {
+        if (this.state.isCustomPalette) {
+          const p = this.customPalette;
+          return {
+            bg: p[1],
+            C: { red: p[2], blue: p[3], line: p[4], text: p[5], vein: p[1] }
+          };
+        }
+        const p = this.PAL[this.state.palette] || this.PAL[0];
+        return {
+          bg: p[1],
+          C: { red: p[2], blue: p[3], line: p[4], text: p[5], vein: p[1] }
+        };
+      }
+
+      mainState() {
+        return {
+          letters: this.letters,
+          S: this.Sd,
+          C: this.pal().C,
+          boil: this.props.boil ?? true,
+          recoil: this.props.recoil ?? 20,
+          speed: this.props.speed ?? 1,
+          wither: 260,
+          face: true
+        };
+      }
+
+      paint(now, caret) {
+        const g = this.g, d = this.dpr;
+        g.setTransform(d, 0, 0, d, 0, 0);
+        g.fillStyle = this.pal().bg;
+        g.fillRect(0, 0, this.W, this.H);
+        const B = this.backend(g), st = this.mainState();
+        this.render(B, now, st);
+        this.drawFlies(B, now, st.C);
+
+        if (caret && this.gifts && this.gifts.length) {
+          const LIFE = 60000;
+          this.gifts = this.gifts.filter(gf => now - gf.t0 < LIFE);
+          for (const gf of this.gifts) {
+            const age = now - gf.t0, w = 1 - this.eo((age - (LIFE - 2200)) / 2200);
+            g.globalAlpha = Math.max(0, w);
+            this.drawFlower(B, gf.x * this.W, gf.y * this.H + (1 - w) * this.Sd * 0.3, this.Sd * 0.24 * (0.65 + 0.35 * w), gf.rot + (1 - w) * 0.6, gf, age, null);
+          }
+          g.globalAlpha = 1;
+        }
+
+        if (caret) {
+          const S = this.Sd, on = now - this.lastKey < 500 || Math.floor(now / 530) % 2 === 0, hf = this.eo((now - this.t0) / 600);
+          if (on && hf > 0) {
+            const h = 0.8 * S * hf, w = Math.max(2, S * 0.03);
+            B.rect(this.cx - w / 2, this.cy - h / 2, w, h, st.C.text);
+          }
+        }
+      }
+
+      render(B, now, st) {
+        const S = st.S, L = st.letters, act = L.filter(l => !l.dead), sp = st.speed || 1;
+        this.cc = st.C;
+        this._now = now;
+        if (st.face) this.perch = [];
+
+        if (st.face) {
+          for (const l of L) {
+            let tx = 0, ty = 0;
+            const A = !l.dead && l.ch !== ' ' ? this.near(l.x, l.y - S * 0.6) : null;
+            if (A) {
+              const dx = A[0] - l.x, dy = A[1] - (l.y - S * 0.6), d = Math.hypot(dx, dy), reach = Math.max(260, S * 3.2);
+              if (d < reach && d > 1) {
+                const w = 1 - d / reach, s = w * w * (3 - 2 * w);
+                tx = dx / d * s;
+                ty = dy / d * s;
+              }
+            }
+            const c = l.lean || (l.lean = [0, 0]);
+            c[0] += (tx - c[0]) * 0.07;
+            c[1] += (ty - c[1]) * 0.07;
+          }
+        }
+
+        const f = st.boil ? Math.floor(now / 120) : 0, amp = st.boil ? Math.max(0.8, S * 0.01) : 0;
+        const kd = l => l.dead ? 1 - this.eo((now - l.dead) / st.wither) : 1;
+
+        const draw = layer => {
+          for (const l of L) {
+            if (l.ch === ' ' || !l.els) continue;
+            const age = (now - l.birth) * sp, kk = kd(l);
+            const each = e => {
+              if (e.t === 'stem') this.drawStem(B, e, l, age, kk, st, f, amp, layer);
+              else if (e.layer === layer) this.drawEl(B, e, l, age, kk, st, f, amp);
+            };
+            l.els.forEach(each);
+            if (l.endEls) l.endEls.forEach(each);
+            const i = act.indexOf(l), nx = i >= 0 ? act[i + 1] : null;
+            if (l.tend && (l.dead || !nx || nx.ch === ' ')) {
+              let fr = this.eo(((now - l.tb) * sp - 150) / 450);
+              if (l.cut != null) fr *= 1 - this.eo((now - l.cut) * sp / 150) * Math.min(0.85, st.recoil / (0.6 * S));
+              for (const e of l.tend) this.drawStem(B, e, l, age, kk, st, f, amp, layer, fr * kk);
+            }
+          }
+        };
+
+        draw(0);
+        for (const l of L) {
+          if (l.ch !== ' ' && (st.textAll || !l.dead)) B.text(l.ch, l.x, l.y, S, st.C.text);
+        }
+        draw(1);
+      }
+
+      wpt(st, l, x, y) {
+        if (l.birth != null && this._now != null) {
+          const t = (this._now - l.birth) * (st.speed || 1) / 1000;
+          if (t > 0 && t < 2.5) {
+            const hh = Math.max(0, (l.y - y) / st.S), dmp = Math.exp(-t * 3.2), dir = (l.id % 2 ? 1 : -1);
+            x += st.S * 0.07 * hh * dmp * Math.sin(t * 11) * dir * (this.props.windScale || 1);
+            y += st.S * 0.035 * hh * dmp * Math.sin(t * 11 + 1.2) * (this.props.windScale || 1);
+          }
+        }
+        if (st.face && l.lean) {
+          const hh = Math.min(2.5, Math.max(0, (l.y - y) / st.S)), f = hh * hh * 0.5 + hh * 0.5;
+          x += l.lean[0] * st.S * 0.1 * f * (this.props.windScale || 1);
+          y += l.lean[1] * st.S * 0.05 * f * (this.props.windScale || 1);
+        }
+        return st.warp ? st.warp(x, y, l) : [x, y];
+      }
+
+      drawStem(B, e, l, age, kk, st, f, amp, layer, frO) {
+        const S = st.S, fr = frO != null ? frO : this.eo((age - e.d0) / e.dur) * kk;
+        if (fr <= 0) return;
+        const j = this.jit(e.id, f, amp);
+        const P = e.pts.map(p => this.wpt(st, l, l.x + p[0] * S + j[0], l.y + p[1] * S + j[1]));
+        for (const sg of e.segs) {
+          if (sg.layer !== layer) continue;
+          const b = Math.min(sg.u1, fr);
+          if (b <= sg.u0) continue;
+          this.strokeRange(B, P, sg.u0, b, st.C.blue, S * 0.022 * (e.w || 1));
+        }
+        for (const th of e.thorns) {
+          if (fr > th.u && this.layerAt(e.segs, th.u) === layer) this.thorn(B, P, th.u, th.s, S);
+        }
+      }
+
+      drawEl(B, e, l, age, kk, st, f, amp) {
+        const S = st.S, j = this.jit(e.id, f, amp), wx = (x, y) => this.wpt(st, l, l.x + x * S + j[0], l.y + y * S + j[1]);
+        const rw = st.rotw ? st.rotw(e) : 0;
+        if (e.t === 'leaf') {
+          const sc = this.spr((age - e.d0) / 1000, 7, 15) * kk;
+          if (sc <= 0) return;
+          const p = wx(e.x, e.y);
+          this.leaf(B, p[0], p[1], e.a + j[2] + rw, e.L * S * sc, e.bend);
+        } else if (e.t === 'flower' || e.t === 'rose') {
+          const a = age - e.d0;
+          if (a < 0) return;
+          if (kk <= 0.001) return;
+          const p = wx(e.x, e.y), tl = st.face ? this.faceTurn(e, p[0], p[1]) : null;
+          if ((st.face || st.perchOn) && !l.dead && a > 700) {
+            this.perch.push({ id: e.id, x: p[0], y: p[1], R: e.R * S * kk });
+          }
+          this.drawFlower(B, p[0], p[1], e.R * S * kk, e.rot + j[2] + rw + (tl ? tl[0] * 0.22 : 0), e, a, tl);
+        }
+      }
+
+      // ---------- Poster Mode Logic ----------
+      preset() {
+        return this.PRESETS.find(p => p.id === this.state.preset) || this.PRESETS[0];
+      }
+
+      buildPoster() {
+        if (!this.pcv) return;
+        const s = this.state, pr = this.preset(), text = (s.text || '').slice(0, 40) || ' ';
+        this.rand = this.rng(s.seed * 7919 + 1);
+        const L = [];
+        let prev = null, uid = 1;
+        for (const ch of text) {
+          if (ch === ' ') {
+            const sp = { ch: ' ', id: 9000 + uid++, els: [] };
+            L.push(sp);
+            prev = sp;
+            continue;
+          }
+          const same = prev && prev.ch !== ' ';
+          const l = {
+            ch,
+            id: 9000 + uid++,
+            ws: same ? prev.ws : Math.floor(this.rand() * 1e9),
+            wi: same ? prev.wi + 1 : 0,
+            prev: same ? prev : null
+          };
+          this.gen(l);
+          L.push(l);
+          prev = l;
+        }
+        const n = L.length;
+        const step = pr.id === 'reference' ? 30 : pr.id === 'grow' ? Math.min(110, 3000 / n) : pr.id === 'typed' ? Math.min(85, 3600 / n) : 0;
+        const off = pr.id === 'grow' ? 200 : pr.id === 'typed' ? 300 : 0;
+        L.forEach((l, i) => { l.b = off + i * step; });
+        if (pr.id === 'scatter') {
+          const r = this.rng(s.seed * 31 + 5);
+          L.forEach(l => { l.b = 150 + r() * 2400; });
+        }
+        const wd = Math.min(60, 900 / n);
+        L.forEach((l, i) => {
+          l.d = pr.id === 'scatter' ? 4700 + i * 8 : 4200 + (n - 1 - i) * wd;
+          const nx = L[i + 1];
+          l.cutRel = null;
+          if (pr.id !== 'scatter' && l.ch !== ' ' && nx && nx.ch === ' ') {
+            l.cutRel = Math.max(30, nx.b - l.b);
+            this.genEnd(l, l.cutRel);
+          }
+        });
+        this.rand = Math.random;
+        const res = this.layoutCore(L, 1080, 1080, false);
+
+        let S = res.S, x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+        const addP = (l, x, y, r) => {
+          const X = l.tx + x * S, Y = l.ty + y * S, R = (r || 0) * S;
+          x0 = Math.min(x0, X - R); x1 = Math.max(x1, X + R);
+          y0 = Math.min(y0, Y - R); y1 = Math.max(y1, Y + R);
+        };
+        for (const l of L) {
+          if (l.ch === ' ') continue;
+          addP(l, -l.tw / S / 2, -0.75);
+          addP(l, l.tw / S / 2, 0.1);
+          const all = [...l.els, ...(l.endEls || [])];
+          for (const e of all) {
+            if (e.t === 'stem') e.pts.forEach(q => addP(l, q[0], q[1], 0.02));
+            else if (e.t === 'leaf') addP(l, e.x, e.y, e.L);
+            else addP(l, e.x, e.y, e.R * 1.15);
+          }
+        }
+
+        let tx0 = 1e9, tx1 = -1e9, ty0 = 1e9, ty1 = -1e9;
+        for (const l of L) {
+          if (l.ch !== ' ') {
+            tx0 = Math.min(tx0, l.tx - l.tw / 2);
+            tx1 = Math.max(tx1, l.tx + l.tw / 2);
+            ty0 = Math.min(ty0, l.ty - 0.72 * S);
+            ty1 = Math.max(ty1, l.ty);
+          }
+        }
+        const Z = 1080, half = Z * 0.44, bcx = (tx0 + tx1) / 2, bcy = (ty0 + ty1) / 2;
+        const k = Math.min(1.25, half / Math.max(1, bcx - x0, x1 - bcx), half / Math.max(1, bcy - y0, y1 - bcy));
+        L.forEach(l => {
+          l.tx = Z / 2 + (l.tx - bcx) * k;
+          l.ty = Z / 2 + (l.ty - bcy) * k;
+          l.tw *= k;
+          l.x = l.tx;
+          l.y = l.ty;
+        });
+
+        this.P = { letters: L, S: S * k, T: pr.T, preset: pr.id };
+        this.pt0 = performance.now();
+        this.updatePresetUI();
+      }
+
+      posterFly(B, tt, P, C) {
+        const ps = this.perch.slice().sort((a, b) => a.x - b.x);
+        if (!ps.length) return;
+        const p1 = ps[Math.floor(ps.length * 0.25)], p2 = ps[Math.min(ps.length - 1, Math.floor(ps.length * 0.75))];
+        const A = [-80, 300], s1 = [p1.x, p1.y - p1.R * 0.55], s2 = [p2.x, p2.y - p2.R * 0.55], E = [1160, 260];
+        const sz = Math.max(12, P.S * 0.09), t = tt / 1000, eo = v => this.eo(Math.max(0, Math.min(1, v)));
+        const leg = (a, b, u, lift) => {
+          const e = eo(u);
+          return [a[0] + (b[0] - a[0]) * e, a[1] + (b[1] - a[1]) * e - Math.sin(e * Math.PI) * lift];
+        };
+        let p, flying = true, vx = 0;
+        if (t < 1.8) { p = leg(A, s1, t / 1.8, 160); vx = 1; }
+        else if (t < 3.4) { p = s1; flying = false; }
+        else if (t < 4.6) { p = leg(s1, s2, (t - 3.4) / 1.2, 140); vx = s2[0] > s1[0] ? 1 : -1; }
+        else if (t < 5.8) { p = s2; flying = false; }
+        else { p = leg(s2, E, (t - 5.8) / 1.2, 60); vx = 1; }
+        let o, ang;
+        if (flying) {
+          o = Math.abs(Math.cos(t * 17));
+          p = [p[0] + Math.sin(t * 7) * 6, p[1] + Math.sin(t * 13) * 4];
+          ang = vx * 0.3;
+        } else {
+          const burst = (t > 2.4 && t < 2.8) || (t > 5 && t < 5.3);
+          o = burst ? 0.2 + 0.8 * Math.abs(Math.cos(t * 9)) : 0.3 + 0.1 * Math.sin(t * 3);
+          ang = 0;
+        }
+        this.butterfly(B, p[0], p[1], sz, ang, o, C);
+      }
+
+      drawBg(g, Z) {
+        g.fillStyle = this.pal().bg;
+        g.fillRect(0, 0, Z, Z);
+      }
+
+      bars(B, P, st, spread, hf) {
+        const S = P.S, byLine = {};
+        for (const l of P.letters) {
+          if (l.ch === ' ') continue;
+          const b = byLine[l.line] || (byLine[l.line] = { a: 1e9, z: -1e9, y: l.ty });
+          b.a = Math.min(b.a, l.tx - l.tw / 2);
+          b.z = Math.max(b.z, l.tx + l.tw / 2);
+        }
+        const w = Math.max(2, S * 0.035), h = 1.0 * S * hf;
+        for (const k in byLine) {
+          const b = byLine[k], cx = (b.a + b.z) / 2, half = (b.z - b.a) / 2 + 0.14 * S, cy = b.y - 0.33 * S;
+          B.rect(cx - half * spread - w / 2, cy - h / 2, w, h, st.C.text);
+          B.rect(cx + half * spread - w / 2, cy - h / 2, w, h, st.C.text);
+        }
+      }
+
+      posterDraw(g, t) {
+        const P = this.P;
+        if (!P) return;
+        const Z = 1080, pc = this.pal();
+        g.setTransform(1, 0, 0, 1, 0, 0);
+        this.drawBg(g, Z);
+        const tt = ((t % P.T) + P.T) % P.T, L = P.letters, B = this.backend(g);
+        const st = {
+          letters: L,
+          S: P.S,
+          C: pc.C,
+          boil: this.props.boil ?? true,
+          recoil: this.props.recoil ?? 20,
+          speed: this.props.speed ?? 1,
+          wither: 600,
+          textAll: true
+        };
+        L.forEach(l => { l.x = l.tx; l.y = l.ty; l.dead = null; });
+        const set = base => L.forEach(l => {
+          l.birth = base + l.b;
+          l.tb = l.birth;
+          l.cut = l.cutRel != null ? l.birth + l.cutRel : null;
+        });
+
+        let bars = null;
+        if (P.preset === 'breathe') {
+          set(-1e5);
+          const ph = tt / P.T * Math.PI * 2, S = P.S;
+          st.warp = (x, y, l) => {
+            const h = Math.max(0, (l.y - y) / S);
+            return [
+              x + Math.sin(ph + l.x * 0.004 + h * 1.1) * S * 0.03 * h * (this.props.windScale || 1),
+              y + Math.cos(ph + x * 0.003) * S * 0.008 * h * (this.props.windScale || 1)
+            ];
+          };
+          st.rotw = e => Math.sin(ph + e.id * 0.7) * 0.12 * (this.props.windScale || 1);
+        } else if (P.preset === 'grow' || P.preset === 'scatter') {
+          set(0);
+          L.forEach(l => { if (tt >= l.d) l.dead = l.d; });
+        } else if (P.preset === 'wind') {
+          set(-1e5);
+          const S = P.S, u = tt / P.T, front = -0.35 + u * 1.9;
+          st.warp = (x, y, l) => {
+            const hh = Math.max(0, (l.y - y) / S), d = l.x / 1080 - front;
+            const g = d < 0 ? Math.exp(d * 2.2) * Math.cos(-d * 9) : Math.exp(-d * d * 30);
+            const idle = Math.sin(tt / 1000 * 1.6 + l.x * 0.01) * 0.012;
+            return [
+              x + (g * 0.13 + idle) * S * hh * hh * 0.6 * (this.props.windScale || 1) + (g * 0.13 + idle) * S * hh * 0.4 * (this.props.windScale || 1),
+              y + Math.abs(g) * 0.02 * S * hh * (this.props.windScale || 1)
+            ];
+          };
+          st.rotw = e => {
+            const d = e.x / 1080 - front;
+            return (d < 0 ? Math.exp(d * 2.2) * Math.cos(-d * 9) : Math.exp(-d * d * 30)) * 0.35 * (this.props.windScale || 1);
+          };
+        } else if (P.preset === 'reach') {
+          set(-1e5);
+          const S = P.S, ph = tt / P.T * Math.PI * 2, lx = 540 + Math.sin(ph) * 430, ly = 540 + Math.sin(ph * 2) * 260;
+          this._light = [lx, ly];
+          st.warp = (x, y, l) => {
+            const dx = lx - l.x, dy = ly - (l.y - S * 0.6), d = Math.hypot(dx, dy) || 1, w = Math.max(0, 1 - d / 560), s = w * w * (3 - 2 * w);
+            const hh = Math.min(2.5, Math.max(0, (l.y - y) / S)), f = hh * hh * 0.5 + hh * 0.5;
+            return [x + dx / d * s * S * 0.12 * f * (this.props.windScale || 1), y + dy / d * s * S * 0.06 * f * (this.props.windScale || 1)];
+          };
+          st.rotw = e => {
+            const a = Math.atan2(ly - e.y, lx - e.x);
+            return Math.sin(a) * 0.15;
+          };
+        } else if (P.preset === 'visit') {
+          set(-1e5);
+          st.perchOn = true;
+          this.perch = [];
+          const ph = tt / P.T * Math.PI * 2;
+          st.warp = (x, y, l) => {
+            const hh = Math.max(0, (l.y - y) / P.S);
+            return [x + Math.sin(ph + l.x * 0.004 + hh) * P.S * 0.015 * hh * (this.props.windScale || 1), y];
+          };
+        } else {
+          if (tt >= 4400) return;
+          set(0);
+          st.letters = L.filter(l => tt >= l.birth);
+          st.textAll = false;
+        }
+
+        this.render(B, tt, st);
+        if (bars != null) this.bars(B, P, st, bars, 1);
+        if (P.preset === 'reach') {
+          const [lx, ly] = this._light, r = P.S * 0.09, pts = [];
+          for (let k = 0; k < 20; k++) {
+            const a = k / 20 * Math.PI * 2;
+            pts.push([lx + Math.cos(a) * r, ly + Math.sin(a) * r]);
+          }
+          B.fill(pts, st.C.line);
+        }
+        if (P.preset === 'visit') this.posterFly(B, tt, P, st.C);
+        if (P.preset === 'typed') {
+          const born = st.letters, last = born[born.length - 1], S = P.S;
+          if (Math.floor(tt / 400) % 2 === 0 || (last && tt - last.birth < 300)) {
+            const x = last ? last.tx + last.tw / 2 + 0.07 * S : 540, y = last ? last.ty - 0.33 * S : 540, w = Math.max(2, S * 0.03), h = 0.8 * S;
+            B.rect(x - w / 2, y - h / 2, w, h, st.C.text);
+          }
+        }
+      }
+
+      // ---------- Export Logic ----------
+      dl(blob, name) {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      }
+
+      savePNG() {
+        this.paint(performance.now(), false);
+        this.cv.toBlob(b => b && this.dl(b, 'garden.png'));
+      }
+
+      saveSVG() {
+        const parts = [], n = v => Math.round(v * 100) / 100;
+        const pb = () => ({
+          d: '',
+          moveTo(x, y) { this.d += `M${n(x)} ${n(y)}`; },
+          lineTo(x, y) { this.d += `L${n(x)} ${n(y)}`; },
+          quadraticCurveTo(a, b, x, y) { this.d += `Q${n(a)} ${n(b)} ${n(x)} ${n(y)}`; },
+          closePath() { this.d += 'Z'; }
+        });
+        const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const B = {
+          fill: (p, col) => {
+            const b = pb();
+            this.path(b, p, true);
+            parts.push(`<path d="${b.d}" fill="${col}"/>`);
+          },
+          stroke: (p, col, w) => {
+            const b = pb();
+            this.path(b, p, false);
+            parts.push(`<path d="${b.d}" fill="none" stroke="${col}" stroke-width="${n(w)}" stroke-linecap="round" stroke-linejoin="round"/>`);
+          },
+          rect: () => {},
+          text: (ch, x, y, S, col) => {
+            parts.push(`<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${this.F.replace(/"/g, "'")}" font-weight="700" font-size="${n(S)}" fill="${col}">${esc(ch)}</text>`);
+          }
+        };
+        this.render(B, performance.now(), this.mainState());
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${n(this.W)}" height="${n(this.H)}" viewBox="0 0 ${n(this.W)} ${n(this.H)}">
+<defs>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:wght@700&amp;family=Playfair+Display:wght@700&amp;family=Syne:wght@700&amp;display=swap');
+    text { font-family: ${this.F}; font-weight: 700; }
+  </style>
+</defs>
+<rect width="100%" height="100%" fill="${this.pal().bg}"/>
+${parts.join('')}
+</svg>`;
+        this.dl(new Blob([svg], { type: 'image/svg+xml' }), 'garden.svg');
+      }
+
+      fname() {
+        return 'garden-' + (this.state.text || 'loop').trim().replace(/[^a-z0-9]+/gi, '-').toLowerCase().slice(0, 24) + '-' + this.state.preset;
+      }
+
+      async exportVideo() {
+        if (!this.vmime || this.state.busy) {
+          this.setExportStatus('Video export is not supported in this browser — use PNG frames.');
+          return;
+        }
+        const P = this.P, c = document.createElement('canvas');
+        c.width = c.height = 1080;
+        const g = c.getContext('2d');
+        const capFn = c.captureStream || c.mozCaptureStream;
+        if (!capFn) {
+          this.setExportStatus('Video export is not supported in this browser — use PNG frames.');
+          return;
+        }
+        let stream;
+        try {
+          stream = capFn.call(c, 0);
+        } catch (e) {
+          try { stream = capFn.call(c, 30); } catch (err) {
+            this.setExportStatus('Video stream capture failed — use PNG frames.');
+            return;
+          }
+        }
+        const track = stream && stream.getVideoTracks ? stream.getVideoTracks()[0] : null;
+        const rec = new MediaRecorder(stream, { mimeType: this.vmime, videoBitsPerSecond: 14e6 }), chunks = [];
+        rec.ondataavailable = e => e.data && e.data.size && chunks.push(e.data);
+        const done = new Promise(r => { rec.onstop = r; });
+
+        this.setBusy(true);
+        this.setExportStatus('Recording…');
+        this.posterDraw(g, 0);
+        rec.start();
+
+        const N = Math.round(P.T / 1000 * 30), wait = ms => new Promise(r => setTimeout(r, ms));
+        const t0 = performance.now();
+        for (let i = 0; i < N; i++) {
+          this.posterDraw(g, i * 1000 / 30);
+          if (track && track.requestFrame) track.requestFrame();
+          if (i % 15 === 0) this.setExportStatus(`Recording ${Math.round(i / N * 100)}%`);
+          const target = t0 + (i + 1) * 1000 / 30;
+          await wait(Math.max(0, target - performance.now()));
+        }
+        rec.stop();
+        await done;
+        const ext = this.vmime.includes('mp4') ? 'mp4' : 'webm';
+        this.dl(new Blob(chunks, { type: this.vmime.split(';')[0] }), `${this.fname()}.${ext}`);
+        this.setBusy(false);
+        this.setExportStatus(`Saved ${ext.toUpperCase()} · ${N} frames`);
+      }
+
+      async exportFrames() {
+        if (this.state.busy) return;
+        const P = this.P, c = document.createElement('canvas');
+        c.width = c.height = 1080;
+        const g = c.getContext('2d'), N = Math.round(P.T / 1000 * 30), files = [];
+        this.setBusy(true);
+        this.setExportStatus('Rendering frames…');
+        for (let i = 0; i < N; i++) {
+          this.posterDraw(g, i * 1000 / 30);
+          const b = await new Promise(r => c.toBlob(r, 'image/png'));
+          files.push({ name: `frame_${String(i + 1).padStart(4, '0')}.png`, data: new Uint8Array(await b.arrayBuffer()) });
+          if (i % 10 === 0) this.setExportStatus(`Rendering ${Math.round(i / N * 100)}%`);
+        }
+        this.dl(this.zip(files), `${this.fname()}-frames.zip`);
+        this.setBusy(false);
+        this.setExportStatus(`Saved ${N} PNG frames · 30 fps`);
+      }
+
+      setBusy(b) {
+        this.state.busy = b;
+        this.btnExportVideo.disabled = b;
+        this.btnExportFrames.disabled = b;
+      }
+
+      setExportStatus(msg) {
+        this.exportStatusEl.textContent = msg;
+      }
+
+      zip(files) {
+        const crcT = this._crcT || (this._crcT = (() => {
+          const t = new Uint32Array(256);
+          for (let n = 0; n < 256; n++) {
+            let c = n;
+            for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1;
+            t[n] = c >>> 0;
+          }
+          return t;
+        })());
+        const crc = d => {
+          let c = 0xFFFFFFFF;
+          for (let i = 0; i < d.length; i++) c = crcT[(c ^ d[i]) & 255] ^ (c >>> 8);
+          return (c ^ 0xFFFFFFFF) >>> 0;
+        };
+        const enc = new TextEncoder(), parts = [], cen = [];
+        let off = 0;
+        for (const f of files) {
+          const nm = enc.encode(f.name), cr = crc(f.data), sz = f.data.length;
+          const h = new DataView(new ArrayBuffer(30));
+          h.setUint32(0, 0x04034b50, true);
+          h.setUint16(4, 20, true);
+          h.setUint16(8, 0, true);
+          h.setUint16(12, 33, true);
+          h.setUint32(14, cr, true);
+          h.setUint32(18, sz, true);
+          h.setUint32(22, sz, true);
+          h.setUint16(26, nm.length, true);
+          parts.push(h.buffer, nm, f.data);
+
+          const c = new DataView(new ArrayBuffer(46));
+          c.setUint32(0, 0x02014b50, true);
+          c.setUint16(4, 20, true);
+          c.setUint16(6, 20, true);
+          c.setUint16(14, 33, true);
+          c.setUint32(16, cr, true);
+          c.setUint32(20, sz, true);
+          c.setUint32(24, sz, true);
+          c.setUint16(28, nm.length, true);
+          c.setUint32(42, off, true);
+          cen.push(c.buffer, nm);
+          off += 30 + nm.length + sz;
+        }
+        const cs = cen.reduce((s, b) => s + (b.byteLength || b.length), 0);
+        const e = new DataView(new ArrayBuffer(22));
+        e.setUint32(0, 0x06054b50, true);
+        e.setUint16(8, files.length, true);
+        e.setUint16(10, files.length, true);
+        e.setUint32(12, cs, true);
+        e.setUint32(16, off, true);
+        return new Blob([...parts, ...cen, e.buffer], { type: 'application/zip' });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      window.tg = new TypeGarden();
+    });
+  })();
+  </script>
+</body>
+</html>
