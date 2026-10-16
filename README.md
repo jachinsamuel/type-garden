@@ -77,7 +77,7 @@ Rebuilt as a **single self-contained HTML file** with **zero build step and zero
 | **Cut Bouquet** | <kbd>Space</kbd> | Cuts the current stem with recoil; begins next garden |
 | **Wither** | <kbd>Backspace</kbd> | Smoothly withers the last letter and its flowers |
 | **Clear Garden** | <kbd>Enter</kbd> | Clears the entire canvas |
-| **Customize Drawer** | <kbd>C</kbd> / Click button | Opens the full customization drawer |
+| **Customize Drawer** | Click [🎨 Customize] | Opens the full customization drawer |
 | **Close Drawer** | <kbd>Esc</kbd> / Click outside | Dismisses the customization drawer |
 | **Save PNG** | <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>Cmd</kbd>+<kbd>S</kbd> | Downloads `garden.png` |
 | **Save SVG** | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>S</kbd> | Downloads `garden.svg` vector graphic |

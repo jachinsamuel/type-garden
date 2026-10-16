@@ -1361,15 +1361,17 @@
       setupEventListeners() {
         window.addEventListener('resize', () => this.resize());
         window.addEventListener('keydown', e => {
-          // Keyboard shortcut 'c' toggles customizer if not currently typing in a field
-          if ((e.key === 'c' || e.key === 'C') && !e.metaKey && !e.ctrlKey && document.activeElement !== this.inp && document.activeElement !== this.posterTextEl) {
-            this.customDrawer.classList.toggle('open');
-            this.btnCustomToggle.classList.toggle('active', this.customDrawer.classList.contains('open'));
-            return;
-          }
           if (e.key === 'Escape' && this.customDrawer.classList.contains('open')) {
             this.customDrawer.classList.remove('open');
             this.btnCustomToggle.classList.remove('active');
+            this.refocus();
+            return;
+          }
+          // Do not capture typing if focus is inside an input or inside the drawer
+          if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') && e.target !== this.inp) {
+            return;
+          }
+          if (this.customDrawer.classList.contains('open') && e.target && e.target.closest('#custom-drawer')) {
             return;
           }
           this.key(e);
@@ -2329,7 +2331,9 @@
           }
           return;
         }
+        if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') && e.target !== this.inp) return;
         if (e.target && e.target.tagName === 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) return;
+        if (this.customDrawer && this.customDrawer.classList.contains('open') && e.target && e.target.closest('#custom-drawer')) return;
         const now = performance.now();
         const A = this.letters.filter(l => !l.dead), last = A[A.length - 1];
         if (e.key === 'Backspace') {
