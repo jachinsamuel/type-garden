@@ -6,7 +6,7 @@
   <title>Type Garden — Living Botanical Typography</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;1,6..96,700&family=Cinzel:wght@700&family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;1,6..96,700&family=Cinzel:wght@700&family=Cormorant+Garamond:ital,wght@0,700;1,700&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Italiana&family=Playfair+Display:ital,wght@0,700;1,700&family=Syne:wght@700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
@@ -62,9 +62,9 @@
       padding: 3px;
       border: 1px solid #2A2A2A;
       border-radius: 999px;
-      background: rgba(10, 10, 10, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
     .tg-mode-btn, .tg-pill-btn {
       border: 0;
@@ -104,7 +104,7 @@
       font-size: 12px;
       letter-spacing: 0.04em;
       color: #FFFFFF;
-      opacity: 0.75;
+      opacity: 0.8;
       transition: opacity 0.25s, color 0.35s;
       z-index: 10;
       pointer-events: none;
@@ -132,11 +132,13 @@
       padding: 4px 6px;
       border: 1px solid #3A3A3A;
       border-radius: 999px;
-      background: rgba(10, 10, 10, 0.75);
-      backdrop-filter: blur(8px);
-      max-width: 480px;
+      background: rgba(10, 10, 10, 0.78);
+      backdrop-filter: blur(10px);
+      max-width: 520px;
       overflow-x: auto;
+      scrollbar-width: none;
     }
+    [data-tg="pal"]::-webkit-scrollbar { display: none; }
     .tg-sw {
       width: 22px;
       height: 22px;
@@ -164,6 +166,9 @@
       border-radius: 999px;
       pointer-events: none;
     }
+    .tg-sw-custom {
+      background: conic-gradient(from 0deg, #ff1400, #ff8a00, #ffd23f, #1fa463, #3257ff, #e63cff, #ff1400) !important;
+    }
     .tg-btn {
       background: transparent;
       border: 1px solid #3A3A3A;
@@ -185,23 +190,24 @@
       height: 32px;
       border-radius: 50%;
       border: 1px solid #3A3A3A;
-      background: rgba(10, 10, 10, 0.75);
+      background: rgba(10, 10, 10, 0.78);
       color: #BDBDBD;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 13px;
-      transition: color 0.2s, border-color 0.2s;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
     .tg-icon-btn:hover {
       color: #FFFFFF;
       border-color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.12);
     }
     .tg-icon-btn.active {
       color: #FFFFFF;
       border-color: #FFFFFF;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.18);
     }
 
     [data-tg="coarse"] { display: none; }
@@ -276,25 +282,25 @@
       .tg-peer span { left: 12px; top: 15px; padding: 3px 7px; }
     }
 
-    /* Customize Drawer / Popover */
+    /* Customize Drawer / Popover Studio */
     .custom-drawer {
       position: absolute;
       top: calc(64px + env(safe-area-inset-top));
       right: calc(16px + env(safe-area-inset-right));
-      width: min(380px, calc(100vw - 32px));
-      max-height: calc(100vh - 120px);
+      width: min(420px, calc(100vw - 32px));
+      max-height: calc(100vh - 100px);
       overflow-y: auto;
-      background: rgba(12, 12, 14, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(14, 14, 16, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid #262626;
-      border-radius: 16px;
-      padding: 20px;
-      z-index: 30;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+      border-radius: 18px;
+      padding: 20px 22px;
+      z-index: 35;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
       display: none;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
       animation: drawerIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .custom-drawer.open {
@@ -311,6 +317,11 @@
       border-bottom: 1px solid #1F1F1F;
       padding-bottom: 12px;
     }
+    .drawer-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .drawer-title {
       font-size: 14px;
       font-weight: 500;
@@ -325,8 +336,50 @@
       font-size: 16px;
       padding: 4px;
       line-height: 1;
+      border-radius: 4px;
     }
-    .drawer-close:hover { color: #FFFFFF; }
+    .drawer-close:hover { color: #FFFFFF; background: rgba(255, 255, 255, 0.08); }
+
+    /* Drawer Tabs */
+    .drawer-nav {
+      display: flex;
+      gap: 4px;
+      background: #101012;
+      padding: 3px;
+      border-radius: 10px;
+      border: 1px solid #1F1F1F;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      border-radius: 7px;
+      border: 0;
+      background: transparent;
+      color: #8C8C8C;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tab-btn.active {
+      background: #242428;
+      color: #FFFFFF;
+      font-weight: 500;
+    }
+    .tab-btn:hover:not(.active) {
+      color: #EDEDED;
+    }
+
+    .tab-panel {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .tab-panel.active {
+      display: flex;
+    }
+
     .drawer-group {
       display: flex;
       flex-direction: column;
@@ -337,6 +390,9 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #8C8C8C;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .chips-grid {
       display: flex;
@@ -344,17 +400,17 @@
       gap: 6px;
     }
     .chip-btn {
-      border: 1px solid #262626;
-      border-radius: 8px;
-      padding: 6px 10px;
+      border: 1px solid #28282C;
+      border-radius: 9px;
+      padding: 7px 11px;
       font-size: 11px;
       letter-spacing: 0.02em;
-      background: transparent;
-      color: #EDEDED;
+      background: #141416;
+      color: #D4D4D8;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       transition: all 0.15s ease;
     }
     .chip-btn.active {
@@ -365,6 +421,7 @@
     }
     .chip-btn:hover:not(.active) {
       border-color: #555555;
+      color: #FFFFFF;
     }
     .slider-row {
       display: flex;
@@ -372,20 +429,59 @@
       justify-content: space-between;
       gap: 12px;
       font-size: 12px;
+      color: #D4D4D8;
     }
     .slider-row input[type=range] {
       flex: 1;
       height: 4px;
-      background: #2A2A2A;
+      background: #26262B;
       border-radius: 2px;
       cursor: pointer;
     }
     .slider-val {
-      min-width: 38px;
+      min-width: 40px;
       text-align: right;
       color: #8C8C8C;
       font-size: 11px;
     }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #D4D4D8;
+      padding: 4px 0;
+    }
+    .switch-toggle {
+      width: 36px;
+      height: 20px;
+      border-radius: 999px;
+      background: #26262A;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid #3A3A40;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .switch-toggle.active {
+      background: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+    .switch-toggle::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #888;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .switch-toggle.active::after {
+      transform: translateX(16px);
+      background: #000;
+    }
+
     .color-pickers-row {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -400,15 +496,15 @@
     }
     .color-picker-item span {
       font-size: 9px;
-      color: #777;
+      color: #8C8C8C;
       text-transform: uppercase;
     }
     .color-picker-item input[type=color] {
       -webkit-appearance: none;
-      border: 1px solid #333;
+      border: 1px solid #333338;
       border-radius: 8px;
       width: 100%;
-      height: 30px;
+      height: 32px;
       cursor: pointer;
       background: transparent;
       padding: 0;
@@ -440,7 +536,6 @@
       background: #0A0A0A;
     }
     .poster-heading {
-      font-family: 'Playfair Display', Georgia, serif;
       font-weight: 700;
       font-size: 26px;
       letter-spacing: 0;
@@ -659,90 +754,188 @@
       </button>
     </div>
 
-    <!-- Customize Drawer / Settings Popover -->
+    <!-- Customize Drawer Studio -->
     <div id="custom-drawer" class="custom-drawer">
       <div class="drawer-header">
-        <span class="drawer-title">Garden Customizer</span>
-        <button id="btn-close-drawer" class="drawer-close" type="button">✕</button>
+        <div class="drawer-title-wrap">
+          <span style="font-size:16px;">🌿</span>
+          <span class="drawer-title">Garden Studio</span>
+        </div>
+        <button id="btn-close-drawer" class="drawer-close" type="button" title="Close">✕</button>
       </div>
 
-      <!-- Flower Varieties -->
-      <div class="drawer-group">
-        <span class="drawer-label">Flower Variety</span>
-        <div id="flower-chips" class="chips-grid">
-          <button class="chip-btn active" data-flower="rose" type="button">🌹 Rose</button>
-          <button class="chip-btn" data-flower="sakura" type="button">🌸 Sakura</button>
-          <button class="chip-btn" data-flower="daisy" type="button">🌼 Daisy</button>
-          <button class="chip-btn" data-flower="orchid" type="button">🌺 Orchid</button>
-          <button class="chip-btn" data-flower="mixed" type="button">💐 Meadow Blend</button>
-        </div>
+      <!-- Navigation Tabs -->
+      <div class="drawer-nav">
+        <button class="tab-btn active" data-tab="flowers" type="button">Flowers</button>
+        <button class="tab-btn" data-tab="type" type="button">Type</button>
+        <button class="tab-btn" data-tab="palette" type="button">Palette</button>
+        <button class="tab-btn" data-tab="motion" type="button">Atmosphere</button>
+        <button class="tab-btn" data-tab="sound" type="button">Audio</button>
       </div>
 
-      <!-- Typeface Selection -->
-      <div class="drawer-group">
-        <span class="drawer-label">Typeface</span>
-        <div id="font-chips" class="chips-grid">
-          <button class="chip-btn active" data-font="playfair" type="button" style="font-family:'Playfair Display',serif">Playfair</button>
-          <button class="chip-btn" data-font="bodoni" type="button" style="font-family:'Bodoni Moda',serif">Bodoni</button>
-          <button class="chip-btn" data-font="cinzel" type="button" style="font-family:'Cinzel',serif">Cinzel</button>
-          <button class="chip-btn" data-font="cormorant" type="button" style="font-family:'Cormorant Garamond',serif">Cormorant</button>
-          <button class="chip-btn" data-font="syne" type="button" style="font-family:'Syne',sans-serif">Syne</button>
-          <button class="chip-btn" data-font="mono" type="button" style="font-family:'DM Mono',monospace">Mono</button>
-        </div>
-      </div>
-
-      <!-- Dynamic Motion Controls -->
-      <div class="drawer-group">
-        <span class="drawer-label">Motion & Dynamics</span>
-        <div class="slider-row">
-          <span>Density</span>
-          <input id="slider-density" type="range" min="0.5" max="1.8" step="0.1" value="1.0">
-          <span id="val-density" class="slider-val">1.0x</span>
-        </div>
-        <div class="slider-row">
-          <span>Speed</span>
-          <input id="slider-speed" type="range" min="0.4" max="2.0" step="0.1" value="1.0">
-          <span id="val-speed" class="slider-val">1.0x</span>
-        </div>
-        <div class="slider-row">
-          <span>Wind Sway</span>
-          <input id="slider-wind" type="range" min="0" max="2.5" step="0.1" value="1.0">
-          <span id="val-wind" class="slider-val">1.0x</span>
-        </div>
-      </div>
-
-      <!-- Audio Synthesizer Toggle -->
-      <div class="drawer-group">
-        <span class="drawer-label">Botanical Audio</span>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:12px;color:#DDD;">Pentatonic Chimes</span>
-          <button id="btn-audio-toggle" class="chip-btn" type="button">Sound: Off</button>
-        </div>
-      </div>
-
-      <!-- Custom Palette Live Tuner -->
-      <div class="drawer-group">
-        <span class="drawer-label">Custom Palette Colors</span>
-        <div class="color-pickers-row">
-          <div class="color-picker-item">
-            <span>Bg</span>
-            <input id="cp-bg" type="color" value="#000000">
+      <!-- Tab: Flowers -->
+      <div id="tab-flowers" class="tab-panel active">
+        <div class="drawer-group">
+          <span class="drawer-label">Floral Species</span>
+          <div id="flower-chips" class="chips-grid">
+            <button class="chip-btn active" data-flower="rose" type="button">🌹 Rose</button>
+            <button class="chip-btn" data-flower="sakura" type="button">🌸 Sakura</button>
+            <button class="chip-btn" data-flower="daisy" type="button">🌼 Daisy</button>
+            <button class="chip-btn" data-flower="orchid" type="button">🌺 Orchid</button>
+            <button class="chip-btn" data-flower="lotus" type="button">🪷 Lotus</button>
+            <button class="chip-btn" data-flower="tulip" type="button">🌷 Tulip</button>
+            <button class="chip-btn" data-flower="mixed" type="button">💐 Meadow Blend</button>
           </div>
-          <div class="color-picker-item">
-            <span>Flower</span>
-            <input id="cp-flower" type="color" value="#FF1400">
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">Flower Bloom Scale</span>
+          <div class="slider-row">
+            <span>Size</span>
+            <input id="slider-flower-scale" type="range" min="0.6" max="1.6" step="0.05" value="1.0">
+            <span id="val-flower-scale" class="slider-val">1.0x</span>
           </div>
-          <div class="color-picker-item">
-            <span>Stem</span>
-            <input id="cp-stem" type="color" value="#3257FF">
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">Botanical Details</span>
+          <div class="toggle-row">
+            <span>Stem Thorns</span>
+            <div id="toggle-thorns" class="switch-toggle active"></div>
           </div>
-          <div class="color-picker-item">
-            <span>Line</span>
-            <input id="cp-line" type="color" value="#FFB4A8">
+          <div class="toggle-row">
+            <span>Leaf Center Veins</span>
+            <div id="toggle-veins" class="switch-toggle active"></div>
           </div>
-          <div class="color-picker-item">
-            <span>Type</span>
-            <input id="cp-type" type="color" value="#FFFFFF">
+        </div>
+      </div>
+
+      <!-- Tab: Type -->
+      <div id="tab-type" class="tab-panel">
+        <div class="drawer-group">
+          <span class="drawer-label">Editorial Typeface</span>
+          <div id="font-chips" class="chips-grid">
+            <button class="chip-btn active" data-font="playfair" type="button" style="font-family:'Playfair Display',serif">Playfair</button>
+            <button class="chip-btn" data-font="bodoni" type="button" style="font-family:'Bodoni Moda',serif">Bodoni</button>
+            <button class="chip-btn" data-font="cinzel" type="button" style="font-family:'Cinzel',serif">Cinzel</button>
+            <button class="chip-btn" data-font="cormorant" type="button" style="font-family:'Cormorant Garamond',serif">Cormorant</button>
+            <button class="chip-btn" data-font="italiana" type="button" style="font-family:'Italiana',serif">Italiana</button>
+            <button class="chip-btn" data-font="abril" type="button" style="font-family:'Abril Fatface',serif">Abril</button>
+            <button class="chip-btn" data-font="syne" type="button" style="font-family:'Syne',sans-serif">Syne</button>
+            <button class="chip-btn" data-font="mono" type="button" style="font-family:'DM Mono',monospace">DM Mono</button>
+          </div>
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">Type Scale Multiplier</span>
+          <div class="slider-row">
+            <span>Letter Size</span>
+            <input id="slider-type-scale" type="range" min="0.7" max="1.4" step="0.05" value="1.0">
+            <span id="val-type-scale" class="slider-val">1.0x</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Palette -->
+      <div id="tab-palette" class="tab-panel">
+        <div class="drawer-group">
+          <div class="drawer-label">
+            <span>Live Color Tuner</span>
+            <button id="btn-rand-palette" class="chip-btn" style="padding:3px 8px;font-size:10px;" type="button">🎲 Randomize</button>
+          </div>
+          <div class="color-pickers-row">
+            <div class="color-picker-item">
+              <span>Bg</span>
+              <input id="cp-bg" type="color" value="#000000">
+            </div>
+            <div class="color-picker-item">
+              <span>Flower</span>
+              <input id="cp-flower" type="color" value="#ff1400">
+            </div>
+            <div class="color-picker-item">
+              <span>Stem</span>
+              <input id="cp-stem" type="color" value="#3257ff">
+            </div>
+            <div class="color-picker-item">
+              <span>Line</span>
+              <input id="cp-line" type="color" value="#ffb4a8">
+            </div>
+            <div class="color-picker-item">
+              <span>Type</span>
+              <input id="cp-type" type="color" value="#ffffff">
+            </div>
+          </div>
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">Curated Themes</span>
+          <div id="drawer-palette-chips" class="chips-grid" style="max-height:160px;overflow-y:auto;padding-right:4px;"></div>
+        </div>
+      </div>
+
+      <!-- Tab: Atmosphere & Motion -->
+      <div id="tab-motion" class="tab-panel">
+        <div class="drawer-group">
+          <span class="drawer-label">Motion Dynamics</span>
+          <div class="slider-row">
+            <span>Foliage Density</span>
+            <input id="slider-density" type="range" min="0.5" max="1.8" step="0.1" value="1.0">
+            <span id="val-density" class="slider-val">1.0x</span>
+          </div>
+          <div class="slider-row">
+            <span>Growth Speed</span>
+            <input id="slider-speed" type="range" min="0.4" max="2.2" step="0.1" value="1.0">
+            <span id="val-speed" class="slider-val">1.0x</span>
+          </div>
+          <div class="slider-row">
+            <span>Wind Sway</span>
+            <input id="slider-wind" type="range" min="0" max="2.5" step="0.1" value="1.0">
+            <span id="val-wind" class="slider-val">1.0x</span>
+          </div>
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">Visual Atmosphere</span>
+          <div class="toggle-row">
+            <span>✨ Bioluminescent Glow</span>
+            <div id="toggle-glow" class="switch-toggle"></div>
+          </div>
+          <div class="toggle-row">
+            <span>🍃 Drifting Petals Weather</span>
+            <div id="toggle-petals" class="switch-toggle active"></div>
+          </div>
+          <div class="toggle-row">
+            <span>✏️ Hand-drawn Line Boil</span>
+            <div id="toggle-boil" class="switch-toggle active"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Audio -->
+      <div id="tab-sound" class="tab-panel">
+        <div class="drawer-group">
+          <span class="drawer-label">Sound Synthesis</span>
+          <div class="toggle-row">
+            <span>Botanical Audio</span>
+            <div id="toggle-audio-main" class="switch-toggle"></div>
+          </div>
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">Instrument Voice</span>
+          <div id="instrument-chips" class="chips-grid">
+            <button class="chip-btn active" data-inst="kalimba" type="button">🎵 Kalimba</button>
+            <button class="chip-btn" data-inst="water" type="button">💧 Water Drops</button>
+            <button class="chip-btn" data-inst="celeste" type="button">✨ Celeste</button>
+          </div>
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">Volume</span>
+          <div class="slider-row">
+            <span>Level</span>
+            <input id="slider-volume" type="range" min="0.05" max="0.4" step="0.02" value="0.15">
+            <span id="val-volume" class="slider-val">15%</span>
           </div>
         </div>
       </div>
@@ -772,7 +965,7 @@
     <div id="poster" data-tg="poster" style="display:none;">
       <div data-tg="panel">
         <div style="display:flex;flex-direction:column;gap:4px">
-          <div class="poster-heading">Poster</div>
+          <div id="poster-title" class="poster-heading">Poster</div>
           <div id="poster-info-label" style="color:#8C8C8C">1:1 · 3s loop · 30 fps</div>
         </div>
 
@@ -810,12 +1003,13 @@
   (() => {
     'use strict';
 
-    // Pentatonic scale synthesizer for meditative typing audio
+    // Multi-voice generative botanical audio synthesizer (Web Audio API)
     class GardenAudio {
       constructor() {
         this.ctx = null;
         this.enabled = false;
-        // Pentatonic notes [C3, E3, G3, A3, C4, D4, E4, G4, A4, C5, D5, E5, G5]
+        this.voice = 'kalimba'; // 'kalimba', 'water', 'celeste'
+        this.masterVolume = 0.15;
         this.notes = [130.81, 164.81, 196.00, 220.00, 261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 783.99];
       }
       init() {
@@ -832,12 +1026,70 @@
         this.enabled = !this.enabled;
         return this.enabled;
       }
+      setVoice(v) {
+        this.voice = v;
+      }
+      setVolume(val) {
+        this.masterVolume = Math.max(0.01, Math.min(0.5, val));
+      }
       playBloom(seed) {
         if (!this.enabled || !this.ctx) return;
         const now = this.ctx.currentTime;
         const idx = Math.abs(seed) % this.notes.length;
         const freq = this.notes[idx];
 
+        if (this.voice === 'water') {
+          // Water drop upward frequency sweep
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const filter = this.ctx.createBiquadFilter();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq * 0.7, now);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.08);
+
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(freq * 1.2, now);
+          filter.Q.value = 4.0;
+
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.linearRampToValueAtTime(this.masterVolume * 0.9, now + 0.01);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.18);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.2);
+          return;
+        }
+
+        if (this.voice === 'celeste') {
+          // Celeste bell chime with sparkling 2nd harmonic
+          const osc1 = this.ctx.createOscillator();
+          const osc2 = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc1.type = 'triangle';
+          osc1.frequency.setValueAtTime(freq * 2, now);
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(freq * 4, now);
+
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.linearRampToValueAtTime(this.masterVolume * 0.6, now + 0.006);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
+
+          osc1.connect(gain);
+          osc2.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc1.start(now);
+          osc2.start(now);
+          osc1.stop(now + 0.7);
+          osc2.stop(now + 0.7);
+          return;
+        }
+
+        // Default: Kalimba
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         const filter = this.ctx.createBiquadFilter();
@@ -847,10 +1099,10 @@
 
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(1400, now);
-        filter.frequency.exponentialRampToValueAtTime(300, now + 0.35);
+        filter.frequency.exponentialRampToValueAtTime(320, now + 0.35);
 
         gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.linearRampToValueAtTime(0.12, now + 0.008);
+        gain.gain.linearRampToValueAtTime(this.masterVolume, now + 0.008);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
 
         osc.connect(filter);
@@ -867,9 +1119,9 @@
         const gain = this.ctx.createGain();
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(110.0, now);
-        osc.frequency.exponentialRampToValueAtTime(82.4, now + 0.22);
+        osc.frequency.exponentialRampToValueAtTime(75.0, now + 0.22);
 
-        gain.gain.setValueAtTime(0.14, now);
+        gain.gain.setValueAtTime(this.masterVolume * 1.1, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
 
         osc.connect(gain);
@@ -883,10 +1135,10 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(320.0, now);
-        osc.frequency.exponentialRampToValueAtTime(160.0, now + 0.3);
+        osc.frequency.setValueAtTime(300.0, now);
+        osc.frequency.exponentialRampToValueAtTime(140.0, now + 0.3);
 
-        gain.gain.setValueAtTime(0.07, now);
+        gain.gain.setValueAtTime(this.masterVolume * 0.7, now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
 
         osc.connect(gain);
@@ -913,6 +1165,7 @@
         this.posterTextEl = document.getElementById('poster-text');
         this.btnReshuffle = document.getElementById('btn-reshuffle');
         this.posterInfoLabel = document.getElementById('poster-info-label');
+        this.posterTitle = document.getElementById('poster-title');
         this.btnPng = document.getElementById('btn-png');
         this.btnSvg = document.getElementById('btn-svg');
         this.btnExportVideo = document.getElementById('btn-export-video');
@@ -932,8 +1185,23 @@
         this.valSpeed = document.getElementById('val-speed');
         this.sliderWind = document.getElementById('slider-wind');
         this.valWind = document.getElementById('val-wind');
-        this.btnAudioToggle = document.getElementById('btn-audio-toggle');
+        this.sliderFlowerScale = document.getElementById('slider-flower-scale');
+        this.valFlowerScale = document.getElementById('val-flower-scale');
+        this.sliderTypeScale = document.getElementById('slider-type-scale');
+        this.valTypeScale = document.getElementById('val-type-scale');
+        this.sliderVolume = document.getElementById('slider-volume');
+        this.valVolume = document.getElementById('val-volume');
+
+        this.toggleThorns = document.getElementById('toggle-thorns');
+        this.toggleVeins = document.getElementById('toggle-veins');
+        this.toggleGlow = document.getElementById('toggle-glow');
+        this.togglePetals = document.getElementById('toggle-petals');
+        this.toggleBoil = document.getElementById('toggle-boil');
+        this.toggleAudioMain = document.getElementById('toggle-audio-main');
         this.btnSoundBar = document.getElementById('btn-sound-bar');
+        this.btnRandPalette = document.getElementById('btn-rand-palette');
+        this.drawerPaletteChips = document.getElementById('drawer-palette-chips');
+        this.instrumentChips = document.getElementById('instrument-chips');
 
         // Color pickers
         this.cpBg = document.getElementById('cp-bg');
@@ -949,6 +1217,8 @@
           bodoni: '"Bodoni Moda", Georgia, serif',
           cinzel: '"Cinzel", Georgia, serif',
           cormorant: '"Cormorant Garamond", Georgia, serif',
+          italiana: '"Italiana", Georgia, serif',
+          abril: '"Abril Fatface", Georgia, serif',
           syne: '"Syne", sans-serif',
           mono: '"DM Mono", ui-monospace, monospace'
         };
@@ -967,25 +1237,27 @@
           { id: 'visit', label: 'Visitor', sub: 'Butterfly drops by · 7s', T: 7000 }
         ];
 
-        // 14 Palettes (10 Original + 4 New Botanical Moods)
+        // 16 Curated Palettes
         this.PAL = [
-          ['Rose noir', '#000000', '#FF1400', '#3257FF', '#FFB4A8', '#FFFFFF'],
-          ['Paper', '#F3EEE4', '#FF3B1F', '#1C2B8F', '#FFD2C4', '#111111'],
-          ['Midnight', '#0D1B4C', '#FF5A4E', '#9FB4FF', '#FFD6CF', '#FFFFFF'],
-          ['Citrus', '#0E1A12', '#FF8A00', '#1FA463', '#FFE2B8', '#FFF6E8'],
-          ['Orchid', '#140A1F', '#E63CFF', '#2FB8A6', '#F9D1FF', '#FFFFFF'],
-          ['Moss', '#133A2A', '#FFB7C5', '#7FD18B', '#FFFFFF', '#F6F1E7'],
-          ['Tomato', '#FF1400', '#FFF1E0', '#0B0B0B', '#FF1400', '#000000'],
-          ['Butter', '#FFE9A8', '#E4002B', '#0F5132', '#FFC2C2', '#1A1A1A'],
-          ['Blush', '#FAD4D8', '#C8102E', '#274690', '#FFE3E6', '#1A1A1A'],
-          ['Mono', '#000000', '#F2F2F2', '#6E6E6E', '#000000', '#FFFFFF'],
-          ['Sakura Twilight', '#0D0F1F', '#FFB7C5', '#48B88F', '#FFD166', '#FFFFFF'],
-          ['Cyber Flora', '#0A0A0C', '#D946EF', '#06B6D4', '#F43F5E', '#FFFFFF'],
-          ['Solaris', '#1A0F0A', '#F59E0B', '#3F6212', '#FCD34D', '#FFFBEB'],
-          ['Ethereal', '#0F172A', '#C4B5FD', '#5EEAD4', '#CBD5E1', '#F8FAFC']
+          ['Rose noir', '#000000', '#ff1400', '#3257ff', '#ffb4a8', '#ffffff'],
+          ['Paper', '#f3eee4', '#ff3b1f', '#1c2b8f', '#ffd2c4', '#111111'],
+          ['Midnight', '#0d1b4c', '#ff5a4e', '#9fb4ff', '#ffd6cf', '#ffffff'],
+          ['Citrus', '#0e1a12', '#ff8a00', '#1fa463', '#ffe2b8', '#fff6e8'],
+          ['Orchid', '#140a1f', '#e63cff', '#2fb8a6', '#f9d1ff', '#ffffff'],
+          ['Moss', '#133a2a', '#ffb7c5', '#7fd18b', '#ffffff', '#f6f1e7'],
+          ['Tomato', '#ff1400', '#fff1e0', '#0b0b0b', '#ff1400', '#000000'],
+          ['Butter', '#ffe9a8', '#e4002b', '#0f5132', '#ffc2c2', '#1a1a1a'],
+          ['Blush', '#fad4d8', '#c8102e', '#274690', '#ffe3e6', '#1a1a1a'],
+          ['Mono', '#000000', '#f2f2f2', '#6e6e6e', '#000000', '#ffffff'],
+          ['Sakura Twilight', '#0d0f1f', '#ffb7c5', '#48b88f', '#ffd166', '#ffffff'],
+          ['Cyber Flora', '#0a0a0c', '#d946ef', '#06b6d4', '#f43f5e', '#ffffff'],
+          ['Solaris', '#1a0f0a', '#f59e0b', '#3f6212', '#fcd34d', '#fffbeb'],
+          ['Ethereal', '#0f172a', '#c4b5fd', '#5eead4', '#cbd5e1', '#f8fafc'],
+          ['Emerald Royal', '#061a14', '#e11d48', '#d97706', '#fca5a5', '#fef3c7'],
+          ['Lavender Dusk', '#130e22', '#c084fc', '#4ade80', '#e9d5ff', '#ffffff']
         ];
 
-        this.customPalette = ['Custom', '#000000', '#FF1400', '#3257FF', '#FFB4A8', '#FFFFFF'];
+        this.customPalette = ['Custom', '#000000', '#ff1400', '#3257ff', '#ffb4a8', '#ffffff'];
 
         this.props = {
           boil: true,
@@ -993,7 +1265,13 @@
           density: 1.0,
           speed: 1.0,
           windScale: 1.0,
-          flowerVariety: 'rose', // 'rose', 'sakura', 'daisy', 'orchid', 'mixed'
+          flowerScale: 1.0,
+          typeScale: 1.0,
+          thorns: true,
+          veins: true,
+          glow: false,
+          fallingPetals: true,
+          flowerVariety: 'rose', // 'rose', 'sakura', 'daisy', 'orchid', 'lotus', 'tulip', 'mixed'
           fontKey: 'playfair',
           showHint: true
         };
@@ -1011,6 +1289,7 @@
           busy: false
         };
 
+        this.driftingPetals = [];
         this.init();
       }
 
@@ -1050,10 +1329,11 @@
         this.liveInit();
         this.buildPoster();
 
-        // Preload Google Fonts
+        // Font preload
         if (document.fonts) {
           Object.values(this.FONTS).forEach(fontSpec => {
-            document.fonts.load(`700 100px ${fontSpec}`).then(() => {
+            const fontLoadSpec = fontSpec.includes('Italiana') || fontSpec.includes('Abril') ? `400 100px ${fontSpec}` : (fontSpec.includes('DM Mono') ? `500 100px ${fontSpec}` : `700 100px ${fontSpec}`);
+            document.fonts.load(fontLoadSpec).then(() => {
               this.cache = {};
               this.layout();
               this.buildPoster();
@@ -1072,13 +1352,34 @@
         loop();
       }
 
+      getFontSpec(size) {
+        const key = this.props.fontKey;
+        const weight = (key === 'italiana' || key === 'abril') ? '400' : (key === 'mono' ? '500' : '700');
+        return `${weight} ${size}px ${this.F}`;
+      }
+
       setupEventListeners() {
         window.addEventListener('resize', () => this.resize());
-        window.addEventListener('keydown', e => this.key(e));
+        window.addEventListener('keydown', e => {
+          // Keyboard shortcut 'c' toggles customizer if not currently typing in a field
+          if ((e.key === 'c' || e.key === 'C') && !e.metaKey && !e.ctrlKey && document.activeElement !== this.inp && document.activeElement !== this.posterTextEl) {
+            this.customDrawer.classList.toggle('open');
+            this.btnCustomToggle.classList.toggle('active', this.customDrawer.classList.contains('open'));
+            return;
+          }
+          if (e.key === 'Escape' && this.customDrawer.classList.contains('open')) {
+            this.customDrawer.classList.remove('open');
+            this.btnCustomToggle.classList.remove('active');
+            return;
+          }
+          this.key(e);
+        });
+
         window.addEventListener('pointermove', e => {
           this.mx = e.clientX;
           this.my = e.clientY;
         });
+
         document.addEventListener('pointerleave', () => { this.mx = null; });
         document.addEventListener('mouseout', e => {
           if (!e.relatedTarget) {
@@ -1091,6 +1392,13 @@
         window.addEventListener('pointerdown', e => {
           this.ptype = e.pointerType || 'mouse';
           this.audio.init();
+
+          // Close custom drawer if clicked outside
+          if (this.customDrawer.classList.contains('open') && !e.target.closest('#custom-drawer, #btn-custom-toggle')) {
+            this.customDrawer.classList.remove('open');
+            this.btnCustomToggle.classList.remove('active');
+          }
+
           if (this.state.mode === 'type' && !e.target.closest('button, input, [data-tg="ctrls"], .custom-drawer')) {
             this.focusInput(e);
           }
@@ -1149,14 +1457,25 @@
           this.btnCustomToggle.classList.remove('active');
         };
 
+        // Drawer Tabs Navigation
+        const tabs = this.customDrawer.querySelectorAll('.tab-btn');
+        tabs.forEach(tab => {
+          tab.onclick = () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.customDrawer.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            const panel = document.getElementById(`tab-${tab.dataset.tab}`);
+            if (panel) panel.classList.add('active');
+          };
+        });
+
         // Flower selection chips
         this.flowerChips.querySelectorAll('.chip-btn').forEach(btn => {
           btn.onclick = () => {
             this.flowerChips.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             this.props.flowerVariety = btn.dataset.flower;
-            this.cache = {};
-            this.letters.forEach(l => { if (l.ch !== ' ') this.gen(l); });
+            // Instantly update flowers on canvas and poster without breaking letters
             this.buildPoster();
           };
         });
@@ -1169,16 +1488,55 @@
             this.props.fontKey = btn.dataset.font;
             this.F = this.FONTS[this.props.fontKey];
             this.posterTextEl.style.fontFamily = this.F;
+            this.posterTitle.style.fontFamily = this.F;
             this.cache = {};
             this.layout(true);
             this.buildPoster();
           };
         });
 
+        // Scale sliders
+        this.sliderFlowerScale.oninput = e => {
+          this.props.flowerScale = parseFloat(e.target.value);
+          this.valFlowerScale.textContent = this.props.flowerScale.toFixed(2) + 'x';
+        };
+        this.sliderTypeScale.oninput = e => {
+          this.props.typeScale = parseFloat(e.target.value);
+          this.valTypeScale.textContent = this.props.typeScale.toFixed(2) + 'x';
+          this.cache = {};
+          this.layout(true);
+          this.buildPoster();
+        };
+
+        // Botanical toggles
+        this.toggleThorns.onclick = () => {
+          this.props.thorns = !this.props.thorns;
+          this.toggleThorns.classList.toggle('active', this.props.thorns);
+        };
+        this.toggleVeins.onclick = () => {
+          this.props.veins = !this.props.veins;
+          this.toggleVeins.classList.toggle('active', this.props.veins);
+        };
+
+        // Atmosphere toggles
+        this.toggleGlow.onclick = () => {
+          this.props.glow = !this.props.glow;
+          this.toggleGlow.classList.toggle('active', this.props.glow);
+        };
+        this.togglePetals.onclick = () => {
+          this.props.fallingPetals = !this.props.fallingPetals;
+          this.togglePetals.classList.toggle('active', this.props.fallingPetals);
+        };
+        this.toggleBoil.onclick = () => {
+          this.props.boil = !this.props.boil;
+          this.toggleBoil.classList.toggle('active', this.props.boil);
+        };
+
         // Slider inputs
         this.sliderDensity.oninput = e => {
           this.props.density = parseFloat(e.target.value);
           this.valDensity.textContent = this.props.density.toFixed(1) + 'x';
+          // Re-generate elements with stable seeds
           this.letters.forEach(l => { if (l.ch !== ' ') this.gen(l); });
           this.buildPoster();
         };
@@ -1191,26 +1549,40 @@
           this.valWind.textContent = this.props.windScale.toFixed(1) + 'x';
         };
 
-        // Audio toggle
+        // Audio controls
         const updateAudioUI = on => {
-          this.btnAudioToggle.textContent = on ? 'Sound: On 🔊' : 'Sound: Off 🔇';
-          this.btnAudioToggle.classList.toggle('active', on);
+          this.toggleAudioMain.classList.toggle('active', on);
           this.btnSoundBar.textContent = on ? '🔊' : '🔇';
           this.btnSoundBar.classList.toggle('active', on);
         };
-        this.btnAudioToggle.onclick = () => updateAudioUI(this.audio.toggle());
+        this.toggleAudioMain.onclick = () => updateAudioUI(this.audio.toggle());
         this.btnSoundBar.onclick = () => updateAudioUI(this.audio.toggle());
+
+        this.instrumentChips.querySelectorAll('.chip-btn').forEach(btn => {
+          btn.onclick = () => {
+            this.instrumentChips.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.audio.setVoice(btn.dataset.inst);
+            if (this.audio.enabled) this.audio.playBloom(Date.now());
+          };
+        });
+
+        this.sliderVolume.oninput = e => {
+          const val = parseFloat(e.target.value);
+          this.audio.setVolume(val);
+          this.valVolume.textContent = Math.round(val / 0.4 * 100) + '%';
+        };
 
         // Custom palette color inputs
         const onCustomColorChange = () => {
           this.state.isCustomPalette = true;
           this.customPalette = [
             'Custom',
-            this.cpBg.value,
-            this.cpFlower.value,
-            this.cpStem.value,
-            this.cpLine.value,
-            this.cpType.value
+            this.cpBg.value.toLowerCase(),
+            this.cpFlower.value.toLowerCase(),
+            this.cpStem.value.toLowerCase(),
+            this.cpLine.value.toLowerCase(),
+            this.cpType.value.toLowerCase()
           ];
           this.updateThemeColors();
           this.updatePaletteUI();
@@ -1219,6 +1591,24 @@
         [this.cpBg, this.cpFlower, this.cpStem, this.cpLine, this.cpType].forEach(cp => {
           cp.addEventListener('input', onCustomColorChange);
         });
+
+        // Randomize palette button
+        this.btnRandPalette.onclick = () => {
+          const rHex = () => '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+          const isDark = Math.random() < 0.7;
+          const bg = isDark ? (Math.random() < 0.5 ? '#000000' : '#080c14') : '#f5f0ea';
+          const flower = rHex();
+          const stem = rHex();
+          const line = rHex();
+          const type = isDark ? '#ffffff' : '#111111';
+
+          this.cpBg.value = bg;
+          this.cpFlower.value = flower;
+          this.cpStem.value = stem;
+          this.cpLine.value = line;
+          this.cpType.value = type;
+          onCustomColorChange();
+        };
 
         // Render palette swatches
         this.renderPalettes();
@@ -1255,7 +1645,11 @@
 
       renderPalettes() {
         this.typePalettesEl.innerHTML = '';
+        this.drawerPaletteChips.innerHTML = '';
+
+        // Preset palettes
         this.PAL.forEach((p, idx) => {
+          // Bottom bar swatch
           const btn = document.createElement('button');
           btn.className = `tg-sw ${!this.state.isCustomPalette && idx === this.state.palette ? 'active' : ''}`;
           btn.type = 'button';
@@ -1270,8 +1664,36 @@
             this.setPalette(idx);
           };
           this.typePalettesEl.appendChild(btn);
+
+          // Drawer chip
+          const chip = document.createElement('button');
+          chip.className = `chip-btn ${!this.state.isCustomPalette && idx === this.state.palette ? 'active' : ''}`;
+          chip.type = 'button';
+          chip.style.fontSize = '10px';
+          chip.innerHTML = `<span style="width:8px;height:8px;border-radius:50%;background:${p[2]};display:inline-block;"></span> ${p[0]}`;
+          chip.onclick = () => {
+            this.state.isCustomPalette = false;
+            this.setPalette(idx);
+          };
+          this.drawerPaletteChips.appendChild(chip);
         });
 
+        // Dedicated custom swatch at the end of the bar
+        const customBtn = document.createElement('button');
+        customBtn.className = `tg-sw tg-sw-custom ${this.state.isCustomPalette ? 'active' : ''}`;
+        customBtn.type = 'button';
+        customBtn.title = 'Custom Tuned Palette';
+        customBtn.innerHTML = `<span class="tg-dot" style="background:#FFFFFF"></span>`;
+        customBtn.onclick = e => {
+          e.stopPropagation();
+          this.state.isCustomPalette = true;
+          this.updateThemeColors();
+          this.updatePaletteUI();
+          this.buildPoster();
+        };
+        this.typePalettesEl.appendChild(customBtn);
+
+        // Poster mode palettes grid
         this.posterPalettesEl.innerHTML = '';
         this.PAL.forEach((p, idx) => {
           const card = document.createElement('button');
@@ -1307,8 +1729,6 @@
           this.cv.style.display = 'none';
           this.peersEl.style.display = 'none';
           this.barEl.style.display = 'none';
-          this.customDrawer.classList.remove('open');
-          this.btnCustomToggle.classList.remove('active');
           this.posterEl.style.display = 'grid';
           this.buildPoster();
         } else {
@@ -1326,16 +1746,24 @@
       setPalette(idx) {
         this.state.palette = idx;
         const cur = this.pal();
-        this.cpBg.value = cur.bg;
-        this.cpFlower.value = cur.C.red;
-        this.cpStem.value = cur.C.blue;
-        this.cpLine.value = cur.C.line;
-        this.cpType.value = cur.C.text;
+        this.cpBg.value = this.toHex7(cur.bg);
+        this.cpFlower.value = this.toHex7(cur.C.red);
+        this.cpStem.value = this.toHex7(cur.C.blue);
+        this.cpLine.value = this.toHex7(cur.C.line);
+        this.cpType.value = this.toHex7(cur.C.text);
 
         this.updateThemeColors();
         this.updatePaletteUI();
         this.buildPoster();
         this.refocus();
+      }
+
+      toHex7(c) {
+        if (!c) return '#000000';
+        c = c.trim().toLowerCase();
+        if (/^#[0-9a-f]{6}$/.test(c)) return c;
+        if (/^#[0-9a-f]{3}$/.test(c)) return '#' + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+        return '#000000';
       }
 
       setPreset(id) {
@@ -1360,6 +1788,8 @@
       updatePaletteUI() {
         const swatches = this.typePalettesEl.children;
         const cards = this.posterPalettesEl.children;
+        const chips = this.drawerPaletteChips.children;
+
         for (let i = 0; i < this.PAL.length; i++) {
           const isAct = !this.state.isCustomPalette && i === this.state.palette;
           if (swatches[i]) {
@@ -1369,7 +1799,14 @@
           if (cards[i]) {
             cards[i].classList.toggle('active', isAct);
           }
+          if (chips[i]) {
+            chips[i].classList.toggle('active', isAct);
+          }
         }
+
+        // Custom swatch toggle
+        const customSw = this.typePalettesEl.querySelector('.tg-sw-custom');
+        if (customSw) customSw.classList.toggle('active', this.state.isCustomPalette);
       }
 
       updatePresetUI() {
@@ -1432,7 +1869,7 @@
         return [P[i], Math.atan2(P[i+1][1] - P[i-1][1], P[i+1][0] - P[i-1][0])];
       }
       jit(id, f, amp) {
-        if (!amp) return [0, 0, 0];
+        if (!amp || !this.props.boil) return [0, 0, 0];
         return [
           (this.h(id*1.37 + f*7.13)*2 - 1)*amp,
           (this.h(id*2.71 + f*3.11)*2 - 1)*amp,
@@ -1463,7 +1900,7 @@
           fill: (p, col) => { g.beginPath(); this.path(g, p, true); g.fillStyle = col; g.fill(); },
           stroke: (p, col, w) => { g.beginPath(); this.path(g, p, false); g.strokeStyle = col; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round'; g.stroke(); },
           rect: (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(x, y, w, h); },
-          text: (ch, x, y, S, col) => { g.font = `700 ${S}px ${this.F}`; g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.fillStyle = col; g.fillText(ch, x, y); }
+          text: (ch, x, y, S, col) => { g.font = this.getFontSpec(Math.round(S)); g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.fillStyle = col; g.fillText(ch, x, y); }
         };
       }
       vine(base, dir, len, amp, waves, ph, bend, n = 40) {
@@ -1526,13 +1963,13 @@
       }
       mw(ch) {
         if (this.cache[ch] != null) return this.cache[ch];
-        this.g.font = `700 100px ${this.F}`;
+        this.g.font = this.getFontSpec(100);
         let w = this.g.measureText(ch).width / 100;
         if (ch === ' ') w *= 1.4;
         return (this.cache[ch] = w);
       }
       layoutCore(A, W, H, prevWrapped) {
-        const maxW = W * 0.8, S0 = H * 0.28, LH = 2.1;
+        const maxW = W * 0.8, S0 = H * 0.28 * (this.props.typeScale || 1), LH = 2.1;
         const ws = A.map(l => this.mw(l.ch));
         const words = [];
         let cur = null;
@@ -1573,7 +2010,7 @@
         const multi = words.filter(w => !w.sp).length > 1;
         let wrapped = multi && (S < H * 0.1 || (prevWrapped && S < H * 0.14));
         if (wrapped) {
-          let lo = H * 0.03, hi = H * 0.15;
+          let lo = H * 0.03, hi = H * 0.15 * (this.props.typeScale || 1);
           for (let k = 0; k < 22; k++) {
             const mid = (lo + hi) / 2, ls = wrap(mid);
             const ok = ls.every(li => lineW(li, mid) <= maxW) && ls.length * LH * mid <= H * 0.82;
@@ -1819,7 +2256,7 @@
           y: Math.min(1, Math.max(0, g.y)),
           t0: performance.now(),
           rot: (r() - 0.5) * 0.8,
-          flowerType: this.props.flowerVariety === 'mixed' ? (r() < 0.35 ? 'rose' : r() < 0.6 ? 'sakura' : r() < 0.85 ? 'daisy' : 'orchid') : this.props.flowerVariety,
+          flowerType: this.props.flowerVariety === 'mixed' ? (r() < 0.2 ? 'rose' : r() < 0.4 ? 'sakura' : r() < 0.6 ? 'daisy' : r() < 0.8 ? 'lotus' : 'orchid') : this.props.flowerVariety,
           e: { ph1: r() * 6.283, ph2: r() * 6.283, turns: 1.4 + r() * 0.5 }
         });
         if (this.gifts.length > 14) this.gifts.shift();
@@ -1944,6 +2381,7 @@
           id: this.uid++,
           birth: now,
           tb: now,
+          seed: Math.floor(this.rand() * 1e6),
           ws: same ? last.ws : Math.floor(this.rand() * 1e9),
           wi: same ? last.wi + 1 : 0,
           prev: same ? last : null
@@ -1958,7 +2396,7 @@
       wordParams(ws) {
         const r = this.rng(ws * 7 + 13), dens = this.props.density ?? 1;
         return {
-          roseP: 0.3 + r() * 0.3,
+          roseP: 0.32 + r() * 0.3,
           leafy: (0.6 + r() * 0.8) * dens,
           dens,
           lean: (r() - 0.5) * 0.6,
@@ -1972,7 +2410,8 @@
       getFlowerType(r) {
         const v = this.props.flowerVariety || 'rose';
         if (v === 'mixed') {
-          return r() < 0.3 ? 'rose' : r() < 0.55 ? 'sakura' : r() < 0.8 ? 'daisy' : 'orchid';
+          const p = r();
+          return p < 0.22 ? 'rose' : p < 0.42 ? 'sakura' : p < 0.6 ? 'daisy' : p < 0.78 ? 'lotus' : p < 0.9 ? 'tulip' : 'orchid';
         }
         return v;
       }
@@ -2041,7 +2480,8 @@
       }
 
       gen(l) {
-        const r = this.rng((l.ws ^ Math.imul(l.wi + 1, 2654435761)) + Math.floor(this.rand() * 1e6));
+        const lSeed = l.seed || 12345;
+        const r = this.rng((l.ws ^ Math.imul(l.wi + 1, 2654435761)) + lSeed);
         const p = this.wordParams(l.ws), E = [];
         let k0 = 0;
         const nid = () => l.id * 100 + (k0++);
@@ -2093,9 +2533,8 @@
         }
 
         l.els = E;
-        l.endEls = null;
 
-        const T = [], tr = this.rng(l.id * 977 + Math.floor(this.rand() * 1e6));
+        const T = [], tr = this.rng(l.id * 977 + lSeed);
         this.grow(tr, T, () => l.id * 100 + 90 + T.length, p, {
           base: [w * 0.25, -0.1 - tr() * 0.45],
           dir: (tr() - 0.5) * 1.4,
@@ -2108,7 +2547,8 @@
       }
 
       genEnd(l, rel) {
-        const r = this.rng(l.ws + l.wi * 31 + Math.floor(this.rand() * 1e6)), p = this.wordParams(l.ws), E = [];
+        const lSeed = l.seed || 12345;
+        const r = this.rng(l.ws + l.wi * 31 + lSeed), p = this.wordParams(l.ws), E = [];
         let k0 = 50;
         const nid = () => l.id * 100 + (k0++);
         const w = this.mw(l.ch), n = 1 + Math.floor(r() * 2.5);
@@ -2140,6 +2580,7 @@
       }
 
       thorn(B, P, u, s, S) {
+        if (!this.props.thorns) return;
         const [p, a] = this.at(P, u), d = a + s * 2.3, L = S * 0.045;
         B.stroke([p, [p[0] + Math.cos(d) * L, p[1] + Math.sin(d) * L]], this.cc.blue, S * 0.022);
       }
@@ -2160,31 +2601,40 @@
         }
         const tip = ax(1), base = ax(0);
         B.fill([base, ...s1.slice(1, N), tip, tip, ...s2.slice(1, N).reverse(), base], this.cc.blue);
-        if (L > 6) {
+        if (L > 6 && this.props.veins) {
           const v = [];
           for (let i = 0; i <= 8; i++) v.push(ax(0.08 + 0.72 * i / 8));
           B.stroke(v, this.cc.vein, Math.max(0.8, L * 0.03));
         }
       }
 
-      // ---------- Specialized Flower Renderers ----------
+      // ---------- Botanical Flower Engines ----------
       drawFlower(B, cx, cy, R, rot, e, a, tl) {
-        const variety = e.flowerType || this.props.flowerVariety || 'rose';
+        const effectiveR = R * (this.props.flowerScale || 1);
+        const variety = this.props.flowerVariety === 'mixed'
+          ? (e.flowerType || 'rose')
+          : (this.props.flowerVariety || 'rose');
+
         if (variety === 'sakura') {
-          this.sakura(B, cx, cy, R, rot, e, a, tl);
+          this.sakura(B, cx, cy, effectiveR, rot, e, a, tl);
         } else if (variety === 'daisy') {
-          this.daisy(B, cx, cy, R, rot, e, a, tl);
+          this.daisy(B, cx, cy, effectiveR, rot, e, a, tl);
         } else if (variety === 'orchid') {
-          this.orchid(B, cx, cy, R, rot, e, a, tl);
+          this.orchid(B, cx, cy, effectiveR, rot, e, a, tl);
+        } else if (variety === 'lotus') {
+          this.lotus(B, cx, cy, effectiveR, rot, e, a, tl);
+        } else if (variety === 'tulip') {
+          this.tulip(B, cx, cy, effectiveR, rot, e, a, tl);
         } else {
-          this.rose(B, cx, cy, R, rot, e, a, tl);
+          this.rose(B, cx, cy, effectiveR, rot, e, a, tl);
         }
       }
 
-      rose(B, cx, cy, R, rot, e, a, tl) {
+      // 3D perspective tilt helper
+      makeTiltTransform(cx, cy, R, rot, tl) {
         const cr = Math.cos(rot), sr = Math.sin(rot);
         const tm = tl ? Math.hypot(tl[0], tl[1]) : 0, ux = tm ? tl[0] / tm : 0, uy = tm ? tl[1] / tm : 0, sq = -0.28 * tm;
-        const T = (x, y, z = 0) => {
+        return (x, y, z = 0) => {
           let dx = x * cr - y * sr, dy = x * sr + y * cr;
           if (tm) {
             const k = (dx * ux + dy * uy) * sq;
@@ -2193,7 +2643,10 @@
           }
           return [cx + dx, cy + dy];
         };
+      }
 
+      rose(B, cx, cy, R, rot, e, a, tl) {
+        const T = this.makeTiltTransform(cx, cy, R, rot, tl);
         const P = [
           [0, -0.36, 0.56, 0.54, 0, 0, 0],
           [-0.5, -0.06, 0.6, 0.6, -0.35, 0, 0],
@@ -2244,8 +2697,7 @@
       }
 
       sakura(B, cx, cy, R, rot, e, a, tl) {
-        const cr = Math.cos(rot), sr = Math.sin(rot);
-        const T = (x, y) => [cx + x * cr - y * sr, cy + x * sr + y * cr];
+        const T = this.makeTiltTransform(cx, cy, R, rot, tl);
         const numPetals = 5;
         const s = this.spr((a - 50) / 1000, 7, 13);
         if (s <= 0.001) return;
@@ -2253,46 +2705,47 @@
         for (let i = 0; i < numPetals; i++) {
           const baseAng = (i * 2 * Math.PI) / numPetals;
           const ca = Math.cos(baseAng), sa = Math.sin(baseAng);
-          const pR = R * s * (0.9 + 0.1 * Math.sin(e.ph1 + i));
-          // Petal with gentle heart notch at apex
+          const pR = R * s * (0.92 + 0.08 * Math.sin(e.ph1 + i));
+          // Petal with heart notch at tip
           const localPts = [
             [0, 0],
             [-0.3 * pR, 0.45 * pR],
-            [-0.34 * pR, 0.85 * pR],
-            [0, 0.76 * pR], // notch center
-            [0.34 * pR, 0.85 * pR],
+            [-0.36 * pR, 0.88 * pR],
+            [-0.1 * pR, 0.96 * pR],
+            [0, 0.82 * pR], // notch center
+            [0.1 * pR, 0.96 * pR],
+            [0.36 * pR, 0.88 * pR],
             [0.3 * pR, 0.45 * pR]
           ];
-          const pts = localPts.map(pt => T(pt[0] * ca - pt[1] * sa, pt[0] * sa + pt[1] * ca));
+          const pts = localPts.map(pt => T(pt[0] * ca - pt[1] * sa, pt[0] * sa + pt[1] * ca, 0.08));
           B.fill(pts, this.cc.red);
-          if (s > 0.4) {
-            const arc = [pts[1], pts[2], pts[3], pts[4], pts[5]];
+          if (s > 0.35) {
+            const arc = [pts[2], pts[3], pts[4], pts[5], pts[6]];
             B.stroke(arc, this.cc.line, Math.max(0.7, R * 0.035));
           }
         }
 
         // Center stamen cluster
-        if (s > 0.5) {
-          const cR = R * 0.18;
+        if (s > 0.45) {
+          const cR = R * s * 0.22;
           const pts = [];
           for (let k = 0; k < 12; k++) {
             const th = k * Math.PI / 6;
-            pts.push(T(Math.cos(th) * cR, Math.sin(th) * cR));
+            pts.push(T(Math.cos(th) * cR, Math.sin(th) * cR, 0.16));
           }
           B.fill(pts, this.cc.line);
           for (let k = 0; k < 5; k++) {
             const th = k * 2 * Math.PI / 5 + e.ph2;
-            const px = Math.cos(th) * R * 0.35, py = Math.sin(th) * R * 0.35;
-            B.stroke([T(0, 0), T(px, py)], this.cc.line, Math.max(0.6, R * 0.03));
-            B.fill([T(px - 1.5, py - 1.5), T(px + 1.5, py - 1.5), T(px + 1.5, py + 1.5), T(px - 1.5, py + 1.5)], this.cc.text);
+            const px = Math.cos(th) * R * 0.4 * s, py = Math.sin(th) * R * 0.4 * s;
+            B.stroke([T(0, 0, 0.15), T(px, py, 0.2)], this.cc.line, Math.max(0.6, R * 0.025));
+            B.fill([T(px - 1.5, py - 1.5, 0.22), T(px + 1.5, py - 1.5, 0.22), T(px + 1.5, py + 1.5, 0.22), T(px - 1.5, py + 1.5, 0.22)], this.cc.text);
           }
         }
       }
 
       daisy(B, cx, cy, R, rot, e, a, tl) {
-        const cr = Math.cos(rot), sr = Math.sin(rot);
-        const T = (x, y) => [cx + x * cr - y * sr, cy + x * sr + y * cr];
-        const numPetals = 12;
+        const T = this.makeTiltTransform(cx, cy, R, rot, tl);
+        const numPetals = 14;
         const s = this.spr((a - 40) / 1000, 8, 12);
         if (s <= 0.001) return;
 
@@ -2300,39 +2753,38 @@
         for (let i = 0; i < numPetals; i++) {
           const baseAng = (i * 2 * Math.PI) / numPetals;
           const ca = Math.cos(baseAng), sa = Math.sin(baseAng);
-          const pL = R * s * 1.05;
-          const pW = R * s * 0.18;
+          const pL = R * s * (1.0 + 0.08 * Math.sin(i * 3 + e.ph1));
+          const pW = R * s * 0.19;
           const localPts = [
             [0, 0],
             [-pW, pL * 0.5],
             [0, pL],
             [pW, pL * 0.5]
           ];
-          const pts = localPts.map(pt => T(pt[0] * ca - pt[1] * sa, pt[0] * sa + pt[1] * ca));
+          const pts = localPts.map(pt => T(pt[0] * ca - pt[1] * sa, pt[0] * sa + pt[1] * ca, 0.05));
           B.fill(pts, this.cc.red);
         }
 
         // Center disk
-        const cR = R * s * 0.38;
+        const cR = R * s * 0.4;
         const center = [];
         for (let k = 0; k < 18; k++) {
           const th = k * Math.PI / 9;
-          center.push(T(Math.cos(th) * cR, Math.sin(th) * cR));
+          center.push(T(Math.cos(th) * cR, Math.sin(th) * cR, 0.14));
         }
         B.fill(center, this.cc.line);
-        if (s > 0.6) {
+        if (s > 0.5) {
           const innerCenter = [];
           for (let k = 0; k < 14; k++) {
             const th = k * Math.PI / 7;
-            innerCenter.push(T(Math.cos(th) * cR * 0.5, Math.sin(th) * cR * 0.5));
+            innerCenter.push(T(Math.cos(th) * cR * 0.52, Math.sin(th) * cR * 0.52, 0.2));
           }
           B.fill(innerCenter, this.cc.vein);
         }
       }
 
       orchid(B, cx, cy, R, rot, e, a, tl) {
-        const cr = Math.cos(rot), sr = Math.sin(rot);
-        const T = (x, y) => [cx + x * cr - y * sr, cy + x * sr + y * cr];
+        const T = this.makeTiltTransform(cx, cy, R, rot, tl);
         const s = this.spr((a - 50) / 1000, 7, 14);
         if (s <= 0.001) return;
 
@@ -2340,34 +2792,111 @@
         const sepals = [-Math.PI / 2, Math.PI / 6, (5 * Math.PI) / 6];
         sepals.forEach(ang => {
           const ca = Math.cos(ang), sa = Math.sin(ang);
-          const pL = R * s * 0.95, pW = R * s * 0.22;
-          const pts = [[0, 0], [-pW, pL * 0.6], [0, pL], [pW, pL * 0.6]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca));
+          const pL = R * s * 0.98, pW = R * s * 0.24;
+          const pts = [[0, 0], [-pW, pL * 0.6], [0, pL], [pW, pL * 0.6]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca, 0.02));
           B.fill(pts, this.cc.line);
         });
 
-        // 2 broad upper petals
+        // 2 broad upper wing petals
         const petals = [-Math.PI / 5, (-4 * Math.PI) / 5];
         petals.forEach(ang => {
           const ca = Math.cos(ang), sa = Math.sin(ang);
-          const pL = R * s * 0.82, pW = R * s * 0.42;
-          const pts = [[0, 0], [-pW, pL * 0.5], [0, pL], [pW, pL * 0.5]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca));
+          const pL = R * s * 0.85, pW = R * s * 0.44;
+          const pts = [[0, 0], [-pW, pL * 0.5], [0, pL], [pW, pL * 0.5]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca, 0.08));
           B.fill(pts, this.cc.red);
         });
 
         // Prominent lower ruffled labellum (lip)
-        const lipW = R * s * 0.52, lipH = R * s * 0.75;
+        const lipW = R * s * 0.54, lipH = R * s * 0.8;
         const lipPts = [
           [0, 0],
           [-lipW * 0.5, lipH * 0.3],
           [-lipW, lipH * 0.7],
           [-lipW * 0.4, lipH],
-          [0, lipH * 0.85],
+          [0, lipH * 0.88],
           [lipW * 0.4, lipH],
           [lipW, lipH * 0.7],
           [lipW * 0.5, lipH * 0.3]
-        ].map(p => T(p[0], p[1]));
+        ].map(p => T(p[0], p[1], 0.16));
         B.fill(lipPts, this.cc.red);
         B.stroke(lipPts, this.cc.line, Math.max(0.8, R * 0.04));
+      }
+
+      lotus(B, cx, cy, R, rot, e, a, tl) {
+        const T = this.makeTiltTransform(cx, cy, R, rot, tl);
+        const s = this.spr((a - 40) / 1000, 8, 12);
+        if (s <= 0.001) return;
+
+        // Outer layer of radiant water lily petals
+        const numOuter = 8;
+        for (let i = 0; i < numOuter; i++) {
+          const ang = (i * 2 * Math.PI) / numOuter + 0.2;
+          const ca = Math.cos(ang), sa = Math.sin(ang);
+          const pL = R * s * 1.1, pW = R * s * 0.26;
+          const pts = [[0, 0], [-pW, pL * 0.5], [0, pL], [pW, pL * 0.5]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca, 0.02));
+          B.fill(pts, this.cc.line);
+        }
+
+        // Inner petal layer
+        const numInner = 6;
+        for (let i = 0; i < numInner; i++) {
+          const ang = (i * 2 * Math.PI) / numInner;
+          const ca = Math.cos(ang), sa = Math.sin(ang);
+          const pL = R * s * 0.82, pW = R * s * 0.3;
+          const pts = [[0, 0], [-pW, pL * 0.55], [0, pL], [pW, pL * 0.55]].map(p => T(p[0] * ca - p[1] * sa, p[0] * sa + p[1] * ca, 0.1));
+          B.fill(pts, this.cc.red);
+          if (s > 0.4) {
+            B.stroke([pts[1], pts[2], pts[3]], this.cc.line, Math.max(0.7, R * 0.035));
+          }
+        }
+
+        // Golden center seed pod
+        const cR = R * s * 0.25;
+        const center = [];
+        for (let k = 0; k < 12; k++) {
+          const th = k * Math.PI / 6;
+          center.push(T(Math.cos(th) * cR, Math.sin(th) * cR, 0.18));
+        }
+        B.fill(center, this.cc.text);
+      }
+
+      tulip(B, cx, cy, R, rot, e, a, tl) {
+        const T = this.makeTiltTransform(cx, cy, R, rot, tl);
+        const s = this.spr((a - 50) / 1000, 7, 13);
+        if (s <= 0.001) return;
+
+        // Base calyx
+        const pR = R * s;
+        // Left petal
+        const leftPts = [
+          [0, 0.3 * pR],
+          [-0.5 * pR, 0.1 * pR],
+          [-0.6 * pR, -0.6 * pR],
+          [-0.2 * pR, -0.9 * pR],
+          [0, -0.2 * pR]
+        ].map(p => T(p[0], p[1], 0.05));
+        B.fill(leftPts, this.cc.red);
+
+        // Right petal
+        const rightPts = [
+          [0, 0.3 * pR],
+          [0.5 * pR, 0.1 * pR],
+          [0.6 * pR, -0.6 * pR],
+          [0.2 * pR, -0.9 * pR],
+          [0, -0.2 * pR]
+        ].map(p => T(p[0], p[1], 0.08));
+        B.fill(rightPts, this.cc.red);
+
+        // Center overlapping main petal
+        const centerPts = [
+          [-0.3 * pR, 0.35 * pR],
+          [-0.38 * pR, -0.4 * pR],
+          [0, -1.02 * pR],
+          [0.38 * pR, -0.4 * pR],
+          [0.3 * pR, 0.35 * pR]
+        ].map(p => T(p[0], p[1], 0.14));
+        B.fill(centerPts, this.cc.line);
+        B.stroke(centerPts, this.cc.red, Math.max(0.8, R * 0.04));
       }
 
       faceTurn(e, x, y) {
@@ -2501,6 +3030,49 @@
         B.stroke([T(0, -0.42), T(0.14, -0.72), T(0.24, -0.86)], C.blue, lw);
       }
 
+      // ---------- Atmospheric Drifting Petals Weather ----------
+      drawDriftingPetals(g, now, C) {
+        if (!this.props.fallingPetals) return;
+        const maxPetals = 22;
+        if (this.driftingPetals.length < maxPetals && Math.random() < 0.12) {
+          this.driftingPetals.push({
+            x: Math.random() * (this.W + 80) - 40,
+            y: -20,
+            vx: (0.4 + Math.random() * 0.8) * (this.props.windScale || 1),
+            vy: 0.6 + Math.random() * 0.9,
+            rot: Math.random() * Math.PI * 2,
+            vrot: (Math.random() - 0.5) * 0.05,
+            sz: 4 + Math.random() * 5,
+            op: 0.4 + Math.random() * 0.5,
+            ph: Math.random() * 10
+          });
+        }
+
+        g.save();
+        for (let i = this.driftingPetals.length - 1; i >= 0; i--) {
+          const p = this.driftingPetals[i];
+          p.x += p.vx + Math.sin(now * 0.002 + p.ph) * 0.5;
+          p.y += p.vy;
+          p.rot += p.vrot;
+
+          if (p.y > this.H + 30 || p.x > this.W + 60) {
+            this.driftingPetals.splice(i, 1);
+            continue;
+          }
+
+          g.save();
+          g.translate(p.x, p.y);
+          g.rotate(p.rot);
+          g.globalAlpha = p.op;
+          g.fillStyle = C.red;
+          g.beginPath();
+          g.ellipse(0, 0, p.sz, p.sz * 0.55, 0, 0, Math.PI * 2);
+          g.fill();
+          g.restore();
+        }
+        g.restore();
+      }
+
       // ---------- Render Loop ----------
       frame() {
         const now = performance.now(), dt = Math.min(64, now - (this.lt || now));
@@ -2561,7 +3133,19 @@
         g.fillStyle = this.pal().bg;
         g.fillRect(0, 0, this.W, this.H);
         const B = this.backend(g), st = this.mainState();
-        this.render(B, now, st);
+
+        // Optional bioluminescent glow
+        if (this.props.glow) {
+          g.save();
+          g.shadowColor = st.C.red;
+          g.shadowBlur = Math.min(22, Math.max(8, this.Sd * 0.08));
+          this.render(B, now, st);
+          g.restore();
+        } else {
+          this.render(B, now, st);
+        }
+
+        this.drawDriftingPetals(g, now, st.C);
         this.drawFlies(B, now, st.C);
 
         if (caret && this.gifts && this.gifts.length) {
@@ -2712,6 +3296,7 @@
           const l = {
             ch,
             id: 9000 + uid++,
+            seed: 7000 + uid,
             ws: same ? prev.ws : Math.floor(this.rand() * 1e9),
             wi: same ? prev.wi + 1 : 0,
             prev: same ? prev : null
@@ -2917,7 +3502,16 @@
           st.textAll = false;
         }
 
-        this.render(B, tt, st);
+        if (this.props.glow) {
+          g.save();
+          g.shadowColor = st.C.red;
+          g.shadowBlur = 24;
+          this.render(B, tt, st);
+          g.restore();
+        } else {
+          this.render(B, tt, st);
+        }
+
         if (bars != null) this.bars(B, P, st, bars, 1);
         if (P.preset === 'reach') {
           const [lx, ly] = this._light, r = P.S * 0.09, pts = [];
@@ -2976,15 +3570,15 @@
           },
           rect: () => {},
           text: (ch, x, y, S, col) => {
-            parts.push(`<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${this.F.replace(/"/g, "'")}" font-weight="700" font-size="${n(S)}" fill="${col}">${esc(ch)}</text>`);
+            parts.push(`<text x="${n(x)}" y="${n(y)}" text-anchor="middle" font-family="${this.F.replace(/"/g, "'")}" font-size="${n(S)}" fill="${col}">${esc(ch)}</text>`);
           }
         };
         this.render(B, performance.now(), this.mainState());
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${n(this.W)}" height="${n(this.H)}" viewBox="0 0 ${n(this.W)} ${n(this.H)}">
 <defs>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:wght@700&amp;family=Playfair+Display:wght@700&amp;family=Syne:wght@700&amp;display=swap');
-    text { font-family: ${this.F}; font-weight: 700; }
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&amp;family=Bodoni+Moda:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:wght@700&amp;family=DM+Mono:wght@500&amp;family=Italiana&amp;family=Playfair+Display:wght@700&amp;family=Syne:wght@700&amp;display=swap');
+    text { font-family: ${this.F}; }
   </style>
 </defs>
 <rect width="100%" height="100%" fill="${this.pal().bg}"/>
